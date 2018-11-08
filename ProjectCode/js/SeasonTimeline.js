@@ -21,6 +21,8 @@ class SeasonTimeline {
         this.svg = timeline.append("svg")
             .attr("width", this.svgWidth)
             .attr("height", this.svgHeight);
+
+        this.seasonWinners = timelineData;
        
     };
 
@@ -31,5 +33,13 @@ class SeasonTimeline {
             .attr("x1","0")
             .attr("x2",this.svgWidth)
             .classed("lineChart",true);
+
+        this.svg.selectAll("circle")
+            .data(this.seasonWinners)
+            .enter()
+            .append("circle")
+            .attr("cy",this.svgHeight/2)
+            .attr("cx",(d,i)=>i*90+10)
+            .attr("r","10");
     };
 }
