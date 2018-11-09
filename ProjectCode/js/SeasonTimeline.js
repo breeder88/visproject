@@ -10,12 +10,12 @@ class SeasonTimeline {
         // assign class 'content' in style.css to electoral-vote chart
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#seasonTimeline");//.classed("sub_content", true);
-        console.log(timeline);
+        console.log(timeline.node().getBoundingClientRect().width);
         console.log(timelineData);
 
         //fetch the svg bounds
-        this.svgWidth = 1620/2;
-        this.svgHeight = 150;
+        this.svgWidth = timeline.node().getBoundingClientRect().width;
+        this.svgHeight = 180;
 
         //add the svg to the div
         this.svg = timeline.append("svg")
@@ -30,8 +30,8 @@ class SeasonTimeline {
         this.svg.append("line")
             .attr("y1",this.svgHeight/2)
             .attr("y2",this.svgHeight/2)
-            .attr("x1","0")
-            .attr("x2",this.svgWidth)
+            .attr("x1","100")
+            .attr("x2",this.svgWidth-100)
             .classed("lineChart",true);
 
         this.svg.selectAll("image")
@@ -39,12 +39,27 @@ class SeasonTimeline {
             .enter()
             .append("svg:image")
             .attr("xlink:href", d=>`TeamLogos/${d.Name}.png`)
-            .attr("width",50)
-            .attr("height",50)
-            .attr("x",(d,i)=>i*90+10)
-            .attr("y",50);
-            //.attr("cy",this.svgHeight/2)
-            //.attr("cx",(d,i)=>i*90+10)
-            //.attr("r","10");
+            .attr("width",150)
+            .attr("height",150)
+            .attr("x",(d,i)=>i*this.svgWidth/9+50)
+            .attr("y","10");
+
+        let timelineText = this.svg.selectAll("text")
+            .data(this.seasonWinners)
+            .enter()
+            .append("text")
+            
+        timelineText.append("tspan")
+            .text(d=>d.Team)
+            .attr("y","170")
+            .attr("x",(d,i)=>i*this.svgWidth/9+125)
+            .style("text-anchor", "middle");
+
+        timelineText.append("tspan")
+            .text(d=>d.Year)
+            .attr("y","11")
+            .attr("x",(d,i)=>i*this.svgWidth/9+125)
+            .style("text-anchor", "middle");
+
     };
 }
