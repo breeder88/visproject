@@ -34,12 +34,17 @@ class SeasonTimeline {
             .attr("x2",this.svgWidth)
             .classed("lineChart",true);
 
-        this.svg.selectAll("circle")
+        this.svg.selectAll("image")
             .data(this.seasonWinners)
             .enter()
-            .append("circle")
-            .attr("cy",this.svgHeight/2)
-            .attr("cx",(d,i)=>i*90+10)
-            .attr("r","10");
+            .append("svg:image")
+            .attr("xlink:href", d=>`TeamLogos/${d.Name}.png`)
+            .attr("width",50)
+            .attr("height",50)
+            .attr("x",(d,i)=>i*90+10)
+            .attr("y",50);
+            //.attr("cy",this.svgHeight/2)
+            //.attr("cx",(d,i)=>i*90+10)
+            //.attr("r","10");
     };
 }
