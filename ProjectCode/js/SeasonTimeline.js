@@ -4,10 +4,7 @@ class SeasonTimeline {
      *
      * @param timelineData Season winner data
      */
-    constructor (timelineData){
-
-        // Follow the constructor method in yearChart.js
-        // assign class 'content' in style.css to electoral-vote chart
+    constructor (timelineData,map){
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#seasonTimeline");//.classed("sub_content", true);
         console.log(timeline.node().getBoundingClientRect().width);
@@ -23,6 +20,10 @@ class SeasonTimeline {
             .attr("height", this.svgHeight);
 
         this.seasonWinners = timelineData;
+        this.map = map;
+        d3.csv("Datasets/rankings.csv").then(rankings => {
+            this.rankings = rankings;
+        });
        
     };
 
@@ -41,6 +42,7 @@ class SeasonTimeline {
             .attr("xlink:href", d=>`TeamLogos/${d.Name}.png`)
             .attr("width",150)
             .attr("height",150)
+            .attr("id",d => d.Year)
             .attr("x",(d,i)=>i*this.svgWidth/9+50)
             .attr("y","10");
 
@@ -60,6 +62,14 @@ class SeasonTimeline {
             .attr("y","11")
             .attr("x",(d,i)=>i*this.svgWidth/9+125)
             .style("text-anchor", "middle");
+        let images = document.getElementsByTagName("image");
+        let that = this;
+        for(let image of images){
+            image.addEventListener("click",function(event){
+                //alert("clicked"+event.target.id);
+                that.map.update(that.rankings,event.target.id);
+            });
+        }
 
     };
 }
