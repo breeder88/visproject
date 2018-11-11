@@ -120,8 +120,7 @@ h1 {
 }
 
 .highlighted{
-    stroke: #404040;;
-    stroke-width:4;
+    filter: brightness(50%)
 }
 
 .brush .selection {

@@ -42,7 +42,17 @@ class SeasonTimeline {
             .attr("width",150)
             .attr("height",150)
             .attr("x",(d,i)=>i*this.svgWidth/9+50)
-            .attr("y","10");
+            .attr("y","10")
+            .on("mouseover", d=>{
+                this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
+            })
+			.on("mouseout", d=>{
+                this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
+            })
+            .on("click", d=>{
+                console.log(d.Year);
+                //this.IndiaMap.update(d.Year);
+            });
 
         let timelineText = this.svg.selectAll("text")
             .data(this.seasonWinners)
