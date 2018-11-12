@@ -97,7 +97,7 @@ h1 {
 
 .lineChart{
     stroke:#000;
-    stroke-dasharray: 4;
+    /* stroke-dasharray: 4; */
 }
 .republican{
     fill: #de2d26;

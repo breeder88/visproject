@@ -7,8 +7,6 @@ class SeasonTimeline {
     constructor (timelineData,map){
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#seasonTimeline");//.classed("sub_content", true);
-        console.log(timeline.node().getBoundingClientRect().width);
-        console.log(timelineData);
 
         //fetch the svg bounds
         this.svgWidth = timeline.node().getBoundingClientRect().width;
@@ -39,7 +37,7 @@ class SeasonTimeline {
             .data(this.seasonWinners)
             .enter()
             .append("svg:image")
-            .attr("xlink:href", d=>`TeamLogos/${d.Name}.png`)
+            .attr("xlink:href", d=>`TeamLogos/${d.Team}.png`)
             .attr("width",150)
             .attr("height",150)
             .attr("id",d => d.Year)
@@ -53,7 +51,7 @@ class SeasonTimeline {
             })
             .on("click", d=>{
                 console.log(d.Year);
-                //this.IndiaMap.update(d.Year);
+                this.map.update(d.Year);
             });
 
         let timelineText = this.svg.selectAll("text")
@@ -72,14 +70,14 @@ class SeasonTimeline {
             .attr("y","11")
             .attr("x",(d,i)=>i*this.svgWidth/9+125)
             .style("text-anchor", "middle");
-        let images = document.getElementsByTagName("image");
-        let that = this;
-        for(let image of images){
-            image.addEventListener("click",function(event){
-                //alert("clicked"+event.target.id);
-                that.map.update(that.rankings,event.target.id);
-            });
-        }
+        // let images = document.getElementsByTagName("image");
+        // let that = this;
+        // for(let image of images){
+        //     image.addEventListener("click",function(event){
+        //         //alert("clicked"+event.target.id);
+        //         that.map.update(that.rankings,event.target.id);
+        //     });
+        // }
 
     };
 }
