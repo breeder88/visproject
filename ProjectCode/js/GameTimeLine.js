@@ -94,4 +94,8 @@ class GameTimeLine{
             .attr("x2",this.timelineEnd)
 			.classed("lineChart",true); 
 	};
+	reset(){
+		this.svg.selectAll("line").remove();
+		this.svg.selectAll("image").remove();
+	};
 }

@@ -219,10 +219,10 @@ h3{
     vertical-align: top;
     overflow: hidden;
 }
-.svg-content-responsive {
-    display: inline-block;
-    position: absolute;
-    top: 10px;
-    left: 0;
+.button{
+    fill:red
+}
+.highlightedButton{
+    fill:darkred
 }
 

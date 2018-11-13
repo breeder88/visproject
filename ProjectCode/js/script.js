@@ -1,5 +1,7 @@
-let indiaMap = new Map();
+this.indiaMap = new Map();
 //indiaMap.update(2008);
+
+// Selection Clearing
 
 // let shiftChart = new TrendChart();
 
@@ -8,12 +10,17 @@ let indiaMap = new Map();
 //load the data corresponding to all the election years
 //pass this data and instances of all the charts that update on year selection to yearChart's constructor
 d3.csv("Datasets/SeasonData.csv").then(timelineData => {
-    let timeline = new SeasonTimeline(timelineData,indiaMap);
-    timeline.update();
+    this.timeline = new SeasonTimeline(timelineData,indiaMap);
+    this.timeline.update();
 });
 d3.csv("Datasets/matches.csv").then(matchData => {
-    let teamSelector = new TeamSelector(matchData);
+    let gameTimeline = new GameTimeLine(matchData);
+    let teamSelector = new TeamSelector(gameTimeline,matchData);
     teamSelector.update(2008);
-    // let gameTimeline = new GameTimeLine(matchData);
+    // document.addEventListener("click", function(e) {
+    //     e.stopPropagation();
+    //     teamSelector.reset(2008);
+    //     gameTimeline.reset();
+    // });
     // gameTimeline.teamUpdate(2008,"Rajasthan Royals");
 });
