@@ -18,8 +18,9 @@ class TeamSelector{
             .attr("width", this.svgWidth)
             .attr("height", this.svgHeight);
 
-        this.teamSelectorStart = 10
-        this.teamSelectorEnd = this.svgWidth-10
+        this.teamSelectorStart = 100
+        this.teamSelectorEnd = this.svgWidth-100
+        this.teamSize = 100
         // this.seasonWinners = timelineData;
         // this.map = map;
         // d3.csv("Datasets/rankings.csv").then(rankings => {
@@ -40,48 +41,21 @@ class TeamSelector{
             });
         }
         teamsPlaying=arrCondense(teamsPlaying)
-		let gameScale = d3.scaleLinear()
+		let teamScale = d3.scaleLinear()
 			.range([this.teamSelectorStart, this.teamSelectorEnd])
 			.domain([0,teamsPlaying.length-1]);
 
-		let teamTimeline = this.svg.selectAll("line")
-			.data(selectedTeamGames);
-		teamTimeline.exit()
-			.remove();    
-		let teamTimelineEnter = teamTimeline.enter().append("line")
-		teamTimeline = teamTimelineEnter.merge(teamTimeline)		
-
-		teamTimeline.attr("y1",this.svgHeight/2)
-			.attr("y2",d=>{
-				if(d.winner == selectedTeam){
-					return this.winTickHeight
-				}
-				else{
-					return this.loseTickHeight
-				}
-			})
-			.attr("x1",(d,i)=>gameScale(i))
-			.attr("x2",(d,i)=>gameScale(i))
-			.classed("lineChart",true);
-
 		let teamIcons = this.svg.selectAll("image")
-			.data(selectedTeamGames);
+			.data(teamsPlaying);
 		teamIcons.exit()
 			.remove();
 		let teamIconsEnter = teamIcons.enter().append("svg:image")
 		teamIcons = teamIconsEnter.merge(teamIcons)
-		teamIcons.attr("xlink:href", d=>`TeamLogos/${d.opposingTeam}.png`)
+		teamIcons.attr("xlink:href", d=>`TeamLogos/${d}.png`)
             .attr("width",this.teamSize)
             .attr("height",this.teamSize)
-            .attr("x",(d,i)=>gameScale(i)-this.teamSize/2)
-            .attr("y",d=>{
-				if(d.winner == selectedTeam){
-					return this.iconHeightWin
-				}
-				else{
-					return this.iconHeightLose
-				}
-			});
+            .attr("x",(d,i)=>teamScale(i)-this.teamSize/2)
+            .attr("y",this.teamSize/2);
 
 		this.svg.append("line")
             .attr("y1",this.svgHeight/2)
