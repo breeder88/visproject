@@ -12,6 +12,8 @@ d3.csv("Datasets/SeasonData.csv").then(timelineData => {
     timeline.update();
 });
 d3.csv("Datasets/matches.csv").then(matchData => {
-    let gameTimeline = new GameTimeLine(matchData);
-    gameTimeline.teamUpdate(2008,"Rajasthan Royals");
+    let teamSelector = new TeamSelector(matchData);
+    teamSelector.update(2008);
+    // let gameTimeline = new GameTimeLine(matchData);
+    // gameTimeline.teamUpdate(2008,"Rajasthan Royals");
 });
