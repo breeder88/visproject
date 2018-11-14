@@ -31,7 +31,7 @@ class TeamSelector{
 	};
 	update(year){
         let yearGames = this.games.filter(d=>d.season==year);
-        let teamsPlaying = [yearGames[0].winner]
+        let teamsPlaying = []
 		yearGames.forEach(d=>{ //find all teams that played
             teamsPlaying.push(d.winner)
         })
@@ -42,6 +42,9 @@ class TeamSelector{
             });
         }
         teamsPlaying=arrCondense(teamsPlaying)
+        if(teamsPlaying[teamsPlaying.length]==null){ //hacky way of fixing bug that allows empty elements at the end of the array sometimes
+            teamsPlaying.pop()
+        }
 		let teamScale = d3.scaleLinear()
 			.range([this.teamSelectorStart, this.teamSelectorEnd])
 			.domain([0,teamsPlaying.length-1]);

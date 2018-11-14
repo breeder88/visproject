@@ -43,7 +43,6 @@ class GameTimeLine{
 			if(d.team1==selectedTeam) d.opposingTeam=d.team2;
 			else d.opposingTeam=d.team1;
 		})
-		console.log(selectedTeamGames)
 		let gameScale = d3.scaleLinear()
 			.range([this.timelineStart, this.timelineEnd])
 			.domain([0,selectedTeamGames.length-1]);
