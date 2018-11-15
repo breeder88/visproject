@@ -42,7 +42,7 @@ class TeamSelector{
             });
         }
         teamsPlaying=arrCondense(teamsPlaying)
-        if(teamsPlaying[teamsPlaying.length]==null){ //hacky way of fixing bug that allows empty elements at the end of the array sometimes
+        if(teamsPlaying[teamsPlaying.length-1]==""){ //hacky way of fixing bug that allows empty elements at the end of the array sometimes
             teamsPlaying.pop()
         }
 		let teamScale = d3.scaleLinear()
