@@ -4,7 +4,7 @@ class SeasonTimeline {
      *
      * @param timelineData Season winner data
      */
-    constructor (timelineData,map,teamSelector){
+    constructor (timelineData,map,teamSelector,gameTimeline){
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#seasonTimeline");//.classed("sub_content", true);
 
@@ -20,6 +20,7 @@ class SeasonTimeline {
         this.seasonWinners = timelineData;
         this.map = map;
         this.teamSelector=teamSelector;
+        this.gameTimeline=gameTimeline
         d3.csv("Datasets/rankings.csv").then(rankings => {
             this.rankings = rankings;
         });
@@ -51,7 +52,9 @@ class SeasonTimeline {
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
             })
             .on("click", d=>{
+                this.teamSelector.reset(d.year)
                 this.teamSelector.update(d.Year)
+                this.gameTimeline.reset();
                 //this.map.update(d.Year);
             });
 

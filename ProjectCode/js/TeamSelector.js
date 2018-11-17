@@ -28,6 +28,10 @@ class TeamSelector{
         this.buttonY=10
         this.buttonLabelX=90
         this.buttonLabelY=15
+        d3.select('#teamSelector')
+            .append('div')
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 	};
 	update(year){
         let yearGames = this.games.filter(d=>d.season==year);
@@ -54,7 +58,8 @@ class TeamSelector{
 		teamIcons.exit()
 			.remove();
 		let teamIconsEnter = teamIcons.enter().append("svg:image")
-		teamIcons = teamIconsEnter.merge(teamIcons)
+        teamIcons = teamIconsEnter.merge(teamIcons)
+        let tooltip = d3.select(".tooltip");
 		teamIcons.attr("xlink:href", d=>`TeamLogos/${d}.png`)
             .attr("width",this.teamSize)
             .attr("height",this.teamSize)
@@ -62,14 +67,20 @@ class TeamSelector{
             .attr("y",this.teamSize/2)
             .on("mouseover", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
+                tooltip.html(this.tooltipRender(d) + "<br/>")
+                    .style("left", d3.event.pageX + "px")
+                    .style("top", d3.event.pageY + "px")
+                    .style("opacity", 1);
             })
 			.on("mouseout", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
+                tooltip.style("opacity",0);
             })
             .on("click", d=>{
                 this.selectedTeam(year,d);
+                tooltip.style("opacity",0);
                 this.gameTimeline.teamUpdate(year,d);
-            });       
+            });    
     };
     selectedTeam(year,teamName){
         this.svg.selectAll("image").remove()
@@ -111,5 +122,9 @@ class TeamSelector{
         this.svg.selectAll("text").remove()
         this.svg.selectAll("image").remove()
 		this.update(year)
-	};
+    };
+    tooltipRender(data) {
+        let text = "<h2>" + data + "</h2>";
+        return text;
+    }
 }

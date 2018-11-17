@@ -14,7 +14,7 @@ d3.csv("Datasets/matches.csv").then(matchData => {
     let teamSelector = new TeamSelector(gameTimeline,matchData);
     teamSelector.update(2008);
     d3.csv("Datasets/SeasonData.csv").then(timelineData => {
-        this.timeline = new SeasonTimeline(timelineData,indiaMap,teamSelector);
+        this.timeline = new SeasonTimeline(timelineData,indiaMap,teamSelector,gameTimeline);
         this.timeline.update();
     });
     // document.addEventListener("click", function(e) {

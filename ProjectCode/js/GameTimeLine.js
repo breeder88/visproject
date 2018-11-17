@@ -32,6 +32,10 @@ class GameTimeLine{
         //     this.rankings = rankings;
 		// });
 		this.games = gameData;       
+		d3.select('#gameTimeline')
+            .append('div')
+            .attr("class", "tooltip")
+            .style("opacity", 0);
 	};
 	teamUpdate(year,selectedTeam){
 		let yearGames = this.games.filter(d=>d.season==year);
@@ -47,7 +51,20 @@ class GameTimeLine{
 			.range([this.timelineStart, this.timelineEnd])
 			.domain([0,selectedTeamGames.length-1]);
 
-		let teamTimeline = this.svg.selectAll("line")
+		this.svg.append("line")
+			// .attr("y1",this.svgHeight/2)
+			// .attr("y2",this.svgHeight/2)
+			// .attr("x1",this.timelineStart)
+			// .attr("x2",this.timelineStart)
+			// .transition()
+			// .duration(750)
+            .attr("y1",this.svgHeight/2)
+            .attr("y2",this.svgHeight/2)
+            .attr("x1",this.timelineStart)
+            .attr("x2",this.timelineEnd)
+			.classed("lineChart",true); 
+
+		let teamTimeline = this.svg.selectAll("ticks")
 			.data(selectedTeamGames);
 		teamTimeline.exit()
 			.remove();    
@@ -56,16 +73,22 @@ class GameTimeLine{
 
 		teamTimeline.attr("y1",this.svgHeight/2)
 			.attr("y2",d=>{
-				if(d.winner == selectedTeam){
-					return this.winTickHeight
+				if(d.result==="no result"){
+					return this.svgHeight/2
 				}
 				else{
-					return this.loseTickHeight
+					if(d.winner == selectedTeam){
+						return this.winTickHeight
+					}
+					else{
+						return this.loseTickHeight
+					}
 				}
 			})
 			.attr("x1",(d,i)=>gameScale(i))
 			.attr("x2",(d,i)=>gameScale(i))
-			.classed("lineChart",true);
+			.classed("lineChart",true)
+			.classed("ticks",true);
 
 		let teamIcons = this.svg.selectAll("image")
 			.data(selectedTeamGames);
@@ -73,28 +96,54 @@ class GameTimeLine{
 			.remove();
 		let teamIconsEnter = teamIcons.enter().append("svg:image")
 		teamIcons = teamIconsEnter.merge(teamIcons)
+		let tooltip = d3.select(".tooltip");
 		teamIcons.attr("xlink:href", d=>`TeamLogos/${d.opposingTeam}.png`)
             .attr("width",this.teamSize)
             .attr("height",this.teamSize)
             .attr("x",(d,i)=>gameScale(i)-this.teamSize/2)
             .attr("y",d=>{
-				if(d.winner == selectedTeam){
-					return this.iconHeightWin
+				if(d.result==="no result"){
+					return (this.iconHeightWin+this.iconHeightLose)/2
 				}
 				else{
-					return this.iconHeightLose
+					if(d.winner == selectedTeam){
+						return this.iconHeightWin
+					}
+					else{
+						return this.iconHeightLose
+					}
 				}
-			});
-
-		this.svg.append("line")
-            .attr("y1",this.svgHeight/2)
-            .attr("y2",this.svgHeight/2)
-            .attr("x1",this.timelineStart)
-            .attr("x2",this.timelineEnd)
-			.classed("lineChart",true); 
+				
+			})
+			.on("mouseover", d=>{
+                this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
+                tooltip.html(this.tooltipRender(d) + "<br/>")
+                    .style("left", d3.event.pageX-75 + "px")
+                    .style("top", d3.event.pageY + "px")
+                    .style("opacity", 1);
+			})
+			.on("mouseout", d=>{
+                this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
+                tooltip.style("opacity",0);
+            })
 	};
 	reset(){
 		this.svg.selectAll("line").remove();
 		this.svg.selectAll("image").remove();
 	};
+	tooltipRender(data) {
+		let text = "<h2>Date: "+ data.date +"<p>Tie Game</p><p>Winner:" + data.winner + "</p></h2>";
+		if (data.result==="normal"){
+			if(data.win_by_runs>0){
+				text = "<h2>Date: "+ data.date +"<p>Winner: " + data.winner + " by "+ data.win_by_runs+ " runs</p></h2>";
+			}
+			else{
+				text = "<h2>Date: "+ data.date +"<p>Winner: " + data.winner + " by "+ data.win_by_wickets+ " wickets</p></h2>";
+			}
+		}
+		if (data.result==="no result"){
+			text = "<h2>Date: "+ data.date +"<p>No Result</p></h2>";
+		}
+        return text;
+    }
 }
