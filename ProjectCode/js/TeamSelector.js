@@ -5,7 +5,7 @@ class TeamSelector{
      * @param yearData the year of interest
 	 * @param gameData Season game data
      */
-    constructor (gameTimeline,gameData){
+    constructor (gameTimeline,gameData,gameView){
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#teamSelector");//.classed("sub_content", true);
 
@@ -13,6 +13,7 @@ class TeamSelector{
         this.svgWidth = timeline.node().getBoundingClientRect().width;
         this.svgHeight = 150;
         this.gameTimeline=gameTimeline
+        this.gameView=gameView
 
         //add the svg to the div
         this.svg = timeline.append("svg")
@@ -34,6 +35,7 @@ class TeamSelector{
             .style("opacity", 0);
 	};
 	update(year){
+        this.svg.selectAll("text").remove()
         let yearGames = this.games.filter(d=>d.season==year);
         let teamsPlaying = []
 		yearGames.forEach(d=>{ //find all teams that played
@@ -80,7 +82,14 @@ class TeamSelector{
                 this.selectedTeam(year,d);
                 tooltip.style("opacity",0);
                 this.gameTimeline.teamUpdate(year,d);
+                this.gameView.reset();
             });    
+            let teamSelectText = this.svg.append("text")
+            teamSelectText.append("tspan")
+                .text("Season: "+year)
+                .attr("y","15")
+                .attr("x",this.svgWidth/2+this.teamSize/2)
+                .style("text-anchor", "middle");
     };
     selectedTeam(year,teamName){
         this.svg.selectAll("image").remove()
@@ -112,7 +121,7 @@ class TeamSelector{
             .attr("y",this.teamSize/2)
         
         this.svg.append("text")
-            .text(teamName)
+            .text("Viewing games for: " +teamName)
             .attr("x",this.svgWidth/2+this.teamSize/2)
             .attr("y",this.teamSize/2)
             .style("text-anchor", "middle");

@@ -5,7 +5,7 @@ class GameTimeLine{
      * @param yearData the year of interest
 	 * @param gameData Season game data
      */
-    constructor (gameData){
+    constructor (gameData,gameView){
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#gamesTimeline");//.classed("sub_content", true);
 
@@ -26,11 +26,7 @@ class GameTimeLine{
 		this.iconHeightWin=this.svgHeight/2-60
 		this.iconHeightLose=this.svgHeight/2
 		this.teamSize=50
-        // this.seasonWinners = timelineData;
-        // this.map = map;
-        // d3.csv("Datasets/rankings.csv").then(rankings => {
-        //     this.rankings = rankings;
-		// });
+		this.gameView = gameView
 		this.games = gameData;       
 		d3.select('#gameTimeline')
             .append('div')
@@ -125,20 +121,23 @@ class GameTimeLine{
 			.on("mouseout", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
                 tooltip.style("opacity",0);
-            })
+			})
+			.on("click", d=>{
+				this.gameView.update(d);
+			})
 	};
 	reset(){
 		this.svg.selectAll("line").remove();
 		this.svg.selectAll("image").remove();
 	};
 	tooltipRender(data) {
-		let text = "<h2>Date: "+ data.date +"<p>Tie Game</p><p>Winner:" + data.winner + "</p></h2>";
+		let text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Tie Game</p><p>Winner:" + data.winner + "</p></h2>";
 		if (data.result==="normal"){
 			if(data.win_by_runs>0){
-				text = "<h2>Date: "+ data.date +"<p>Winner: " + data.winner + " by "+ data.win_by_runs+ " runs</p></h2>";
+				text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Winner: " + data.winner + " by "+ data.win_by_runs+ " runs</p></h2>";
 			}
 			else{
-				text = "<h2>Date: "+ data.date +"<p>Winner: " + data.winner + " by "+ data.win_by_wickets+ " wickets</p></h2>";
+				text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Winner: " + data.winner + " by "+ data.win_by_wickets+ " wickets</p></h2>";
 			}
 		}
 		if (data.result==="no result"){

@@ -243,3 +243,22 @@ div.tooltip {
     margin: auto;
     font: 14px sans-serif;
 }
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: #000;
+    shape-rendering: crispEdges;
+}
+
+.axis-label {
+    font-size: 11px;
+}
+
+.team1{
+    fill: red
+}
+
+.team2{
+    fill: blue
+}
