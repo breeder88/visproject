@@ -262,3 +262,11 @@ div.tooltip {
 .team2{
     fill: blue
 }
+
+.y-label,
+.x-label{
+    width: 1%7;
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}

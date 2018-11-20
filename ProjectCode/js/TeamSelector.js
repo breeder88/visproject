@@ -107,6 +107,7 @@ class TeamSelector{
             .on("click", d=>{
                 this.gameTimeline.reset();
                 this.reset(year);
+                this.gameView.reset();
             });
         let buttonLabel=this.svg.append("text")
         buttonLabel.text("Pick Another Team")
