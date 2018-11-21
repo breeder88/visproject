@@ -262,6 +262,14 @@ div.tooltip {
 .team2{
     fill: blue
 }
+.runsPathTeam1{
+    fill: none;
+    stroke: red;
+}
+.runsPathTeam2{
+    fill: none;
+    stroke: blue;
+}
 
 .y-label,
 .x-label{

@@ -13,10 +13,10 @@ class GameView {
         //fetch the svg bounds
         this.gameOverviewWidth = gameOverview.node().getBoundingClientRect().width;
         this.gameOverviewHeight = 225;
-        this.gameBattingWidth = gameBattingPlot.node().getBoundingClientRect().width-100;
-        this.gameBattingHeight = 800;
-        this.gameBowlingWidth = gameBowlingPlot.node().getBoundingClientRect().width;
-        this.gameBowlingHeight = 150;
+        this.gameBattingWidth = 600;//gameBattingPlot.node().getBoundingClientRect().width-500;
+        this.gameBattingHeight = 400;
+        this.gameBowlingWidth = 700;//gameBowlingPlot.node().getBoundingClientRect().width;
+        this.gameBowlingHeight = 400;
 
         //add the svg to the div
         this.overviewsvg = gameOverview.append("svg")
@@ -28,7 +28,7 @@ class GameView {
         this.bowlingsvg = gameBowlingPlot.append("svg")
             .attr("width", this.gameBowlingWidth)
             .attr("height", this.gameBowlingHeight)
-
+            
         this.playerData = playerData
 
         this.battingPlotGroup = this.battingsvg.append('g')
@@ -64,10 +64,14 @@ class GameView {
         let battingPlotGroup = this.battingPlotGroup
         let battingsvg = this.battingsvg
         function tooltipRender(data) {
-            let text = "<h2>Player Name: "+ data.playerName +"<p>Runs: "+ data.runs +"</p><p>Strike Rate: " + data.strikeRate + "</p><p>Balls: " + data.balls + "</p></h2>";
+            let text = "<h2>Player Name: "+ data.playerName +"<p>Runs: "+ data.runs +"</p><p>Strike Rate: " + data.strikeRate + "</p><p>Balls: " + data.balls + "</p><p>Team: " + data.team + "</p></h2>";
             return text;
         }
         function updateGameOverview(gameData,selectedGame){
+            battingsvg.append("path")
+                .classed("runsPathTeam1",true)
+            battingsvg.append("path")
+                .classed("runsPathTeam2",true)
             let xRunsAxis = d3.axisBottom();
             let xAxisBattingHeight = battingHeight-50
             let xRunAx = battingPlotGroup.append("g").classed("x-axis", true)
@@ -97,51 +101,61 @@ class GameView {
                 .text("First to bat: "+selectedGame.firstInnings.batting.team)
                 .attr("y","160")
                 .attr("x",gameOverviewWidth/4+75)
+                .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Runs: "+selectedGame.firstInnings.batting.runs)
                 .attr("y","175")
                 .attr("x",gameOverviewWidth/4+75)
+                .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Wickets: "+selectedGame.firstInnings.batting.wickets)
                 .attr("y","190")
                 .attr("x",gameOverviewWidth/4+75)
+                .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Run Rate: "+selectedGame.firstInnings.batting.runRate)
                 .attr("y","205")
                 .attr("x",gameOverviewWidth/4+75)
+                .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Overs: "+selectedGame.firstInnings.batting.overs)
                 .attr("y","220")
                 .attr("x",gameOverviewWidth/4+75)
+                .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Second to bat: "+selectedGame.secondInnings.batting.team)
                 .attr("y","160")
                 .attr("x",3*gameOverviewWidth/4+75)
+                .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Runs: "+selectedGame.secondInnings.batting.runs)
                 .attr("y","175")
                 .attr("x",3*gameOverviewWidth/4+75)
+                .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Wickets: "+selectedGame.secondInnings.batting.wickets)
                 .attr("y","190")
                 .attr("x",3*gameOverviewWidth/4+75)
+                .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Run Rate: "+selectedGame.secondInnings.batting.runRate)
                 .attr("y","205")
                 .attr("x",3*gameOverviewWidth/4+75)
+                .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Overs: "+selectedGame.secondInnings.batting.overs)
                 .attr("y","220")
                 .attr("x",3*gameOverviewWidth/4+75)
+                .classed("team2",true)
                 .style("text-anchor", "middle");
 
             overviewsvg.append("svg:image")
@@ -186,16 +200,16 @@ class GameView {
             runsData.forEach(player=>{
                 if(parseInt(player.runs)>parseInt(maxRuns)) maxRuns=player.runs
             })
-            let xScale = d3.scaleLinear()
+            let xRunScale = d3.scaleLinear()
                        .range([margin.left, battingWidth-50])
                        .domain([0,maxPlayers-1])
-                       .nice();
-            let yScale = d3.scaleLinear()
+                        .nice();
+            let yRunScale = d3.scaleLinear()
                        .range([margin.top, battingHeight-50])
                        .domain([maxRuns,0])
                        .nice();               
-            xRunsAxis.scale(xScale);
-            yRunsAxis.scale(yScale);
+            xRunsAxis.scale(xRunScale);
+            yRunsAxis.scale(yRunScale);
             let axisXLabel = d3.select('.axis-label-x')
                 .text("Player Number")
                 .style("text-anchor", "middle")
@@ -205,7 +219,7 @@ class GameView {
                 .style("text-anchor", "middle")
                 .attr('transform', 'translate(' + (margin.left / 2 ) + ', ' + (battingHeight / 2) + ')rotate(-90)');        
         
-            d3.select(".x-axis").call(xRunsAxis);
+            d3.select(".x-axis").call(xRunsAxis.ticks(maxPlayers));
             d3.select(".y-axis").call(yRunsAxis);
             
             let runsPlot = battingsvg.selectAll("circle").data(runsData);
@@ -213,10 +227,10 @@ class GameView {
                 .remove();        
             let runsPlotEnter = runsPlot.enter().append("circle");
             runsPlot = runsPlot.merge(runsPlotEnter);
-            runsPlot.attr("cx", d=>xScale(d.number))
-                .attr("cy", d=>yScale(d.runs))
+            runsPlot.attr("cx", d=>xRunScale(d.number))
+                .attr("cy", d=>yRunScale(d.runs))
                 .attr("r", d=>{
-                    if(d.size==="big") return 15
+                    if(d.size==="big") return 10
                     else return 5
                 })
                 .attr("class",d=>d.teamNumber)
@@ -231,7 +245,26 @@ class GameView {
                     runsPlot.selectAll("circle").filter(circ => circ==d).classed("highlighted",false);
                     d3.select(".tooltip").style("opacity",0);
                 })
-            
+            let battingLineGenerator = d3.line()
+                .x((d) => xRunScale(d.number))
+                .y((d) => yRunScale(d.runs));
+
+
+            let runsPlotTeam1 = battingsvg.select(".runsPathTeam1").data(runsDataTeam1);
+            runsPlotTeam1.exit()
+                .remove();        
+            let runsPlotEnterTeam1 = runsPlot.enter().append("path")
+                .classed("runsPathTeam1",true);
+            runsPlotTeam1 = runsPlotTeam1.merge(runsPlotEnterTeam1);
+            runsPlotTeam1.attr("d", battingLineGenerator(runsDataTeam1));
+
+            let runsPlotTeam2 = battingsvg.select(".runsPathTeam2").data(runsDataTeam2);
+            runsPlotTeam2.exit()
+                .remove();        
+            let runsPlotEnterTeam2 = runsPlot.enter().append("path")
+                .classed("runsPathTeam2",true);
+            runsPlotTeam2 = runsPlotTeam2.merge(runsPlotEnterTeam2);
+            runsPlotTeam2.attr("d", battingLineGenerator(runsDataTeam2));
         }
         if(gameData.result === "no result"){
             let timelineText = overviewsvg.append("text")
@@ -282,5 +315,7 @@ class GameView {
             .remove()
         this.battingsvg.select(".y-axis")
             .remove()   
+        this.battingsvg.selectAll("path")
+            .remove()
     }
 }
