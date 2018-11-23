@@ -4,7 +4,7 @@ class SeasonTimeline {
      *
      * @param timelineData Season winner data
      */
-    constructor (timelineData,map,teamSelector,gameTimeline,gameView){
+    constructor (timelineData,map,table,teamSelector,gameTimeline,gameView){
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let timeline = d3.select("#seasonTimeline");//.classed("sub_content", true);
 
@@ -19,6 +19,7 @@ class SeasonTimeline {
 
         this.seasonWinners = timelineData;
         this.map = map;
+        this.table = table;
         this.teamSelector=teamSelector;
         this.gameTimeline=gameTimeline;
         this.gameView=gameView;
@@ -35,6 +36,8 @@ class SeasonTimeline {
             .attr("x1","100")
             .attr("x2",this.svgWidth-100)
             .classed("lineChart",true);
+
+        let that = this;
 
         this.svg.selectAll("image")
             .data(this.seasonWinners)
@@ -53,11 +56,12 @@ class SeasonTimeline {
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
             })
             .on("click", d=>{
-                this.teamSelector.reset(d.year)
-                this.teamSelector.update(d.Year)
+                this.teamSelector.reset(d.year);
+                this.teamSelector.update(d.Year);
                 this.gameTimeline.reset();
                 this.gameView.reset();
-                //this.map.update(d.Year);
+                that.map.update(d.Year,that.rankings);
+                that.table.updateTable(d.Year,that.rankings);
             });
 
         let timelineText = this.svg.selectAll("text")
@@ -76,14 +80,5 @@ class SeasonTimeline {
             .attr("y","11")
             .attr("x",(d,i)=>i*this.svgWidth/9+125)
             .style("text-anchor", "middle");
-        // let images = document.getElementsByTagName("image");
-        // let that = this;
-        // for(let image of images){
-        //     image.addEventListener("click",function(event){
-        //         //alert("clicked"+event.target.id);
-        //         that.map.update(that.rankings,event.target.id);
-        //     });
-        // }
-
     };
 }
