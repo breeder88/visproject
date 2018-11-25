@@ -264,6 +264,7 @@ div.tooltip {
     fill: blue;
     stroke: blue
 }
+
 .runsPathTeam1{
     fill: none;
     stroke: red;
@@ -271,6 +272,10 @@ div.tooltip {
 .runsPathTeam2{
     fill: none;
     stroke: blue;
+}
+.testClass{
+    fill: black;
+    stroke: black;
 }
 
 .y-label,

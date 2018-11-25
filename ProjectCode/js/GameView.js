@@ -26,7 +26,7 @@ class GameView {
             .attr("width", this.gameBattingWidth)
             .attr("height", this.gameBattingHeight)
         this.bowlingsvg = gameBowlingPlot.append("svg")
-            .attr("width", this.gameBowlingWidth)
+            .attr("width", this.gameBowlingWidth+75)
             .attr("height", this.gameBowlingHeight)
             
         this.playerData = playerData
@@ -233,14 +233,12 @@ class GameView {
                 })
                 .attr("class",d=>d.teamNumber)
                 .on("mouseover", d=>{
-                    runsPlot.selectAll("circle").filter(circ => circ==d).classed("highlighted",true);
                     d3.select(".tooltip").html(tooltipRender(d) + "<br/>")
                         .style("left", d3.event.pageX-75 + "px")
                         .style("top", d3.event.pageY + "px")
                         .style("opacity", 1);
                 })
                 .on("mouseout", d=>{
-                    runsPlot.selectAll("circle").filter(circ => circ==d).classed("highlighted",false);
                     d3.select(".tooltip").style("opacity",0);
                 })
             let battingLineGenerator = d3.line()
@@ -264,11 +262,16 @@ class GameView {
             runsPlotTeam2.attr("d", battingLineGenerator(runsDataTeam2));
 
             let bowlDataTeam1 = selectedGame.firstInnings.bowling.players
+            let team1Pos = margin.bottom
+            let team2Pos = gameBowlingHeight-margin.bottom
+            let labelPosition = 175
             index=0
             bowlDataTeam1.forEach(player=>{
                 player.teamNumber = "team1"
                 player.team = selectedGame.secondInnings.batting.team
                 player.number = index
+                player.x = labelPosition
+                player.y = team1Pos+index*margin.bottom
                 index = index+1
             })
             let bowlDataTeam2 = selectedGame.secondInnings.bowling.players
@@ -277,11 +280,13 @@ class GameView {
                 player.teamNumber = "team2"
                 player.team = selectedGame.firstInnings.batting.team
                 player.number = index
+                player.x = labelPosition
+                player.y = team2Pos-index*margin.bottom
                 index = index+1
             })
 
             let bowlingData = bowlDataTeam1.concat(bowlDataTeam2)
-            console.log(selectedGame)
+            console.log(bowlingData)
             let bowlingAxisHeight = gameBowlingHeight-20
             function contstructParallelAxes(bowlingData){
                 let maxWickets = 0
@@ -319,9 +324,8 @@ class GameView {
                 player.wicketsScale = parallelWickets
                 player.oversScale = parallelOvers
             })
-            console.log(bowlingData)
             let axisPosition = []
-            axisPosition.push(margin.left+100)
+            axisPosition.push(margin.left+150)
             let bowlAxisEconomy = d3.axisRight()
             bowlingPlotGroup.append("g").classed("economy-axis", true)
                 .attr("transform", "translate(" + axisPosition[0] + ", 0)");
@@ -364,7 +368,7 @@ class GameView {
                 .attr("transform", "translate(" + axisPosition[3] + ", 0)");
             bowlingPlotGroup.append('text').classed('overs-label', true);
             bowlAxisOvers.scale(parallelOvers)
-            d3.select(".overs-axis").call(bowlAxisOvers.ticks(parallelAxes[3]))
+            d3.select(".overs-axis").call(bowlAxisOvers)
             let oversLabel = d3.select('.overs-label')
                 .text("Overs Bowled")
                 .style("text-anchor", "middle")
@@ -372,36 +376,66 @@ class GameView {
             
             bowlingsvg.selectAll(".team1").remove()
             bowlingsvg.selectAll(".team2").remove()
-            bowlingData.forEach(player =>{
-                
+
+            let parallelText = bowlingsvg.selectAll(".teamText")
+                .data(bowlingData)
+                .enter()
+                .append("text")
+            
+            parallelText.append("tspan")
+                .text(d=>d.playerName)
+                .attr("y",d=>d.y)
+                .attr("x",d=>d.x-2)
+                .style("text-anchor", "end")
+                .attr("class",d=>d.teamNumber)
+                .on("mouseover",d=>{
+                    document.getElementById(d.playerName+"1").setAttribute("stroke-width","5")
+                    document.getElementById(d.playerName+"2").setAttribute("stroke-width","5")
+                    document.getElementById(d.playerName+"3").setAttribute("stroke-width","5")
+                    document.getElementById(d.playerName+"4").setAttribute("stroke-width","5")
+                })
+                .on("mouseout", d=>{
+                    document.getElementById(d.playerName+"1").setAttribute("stroke-width","1")
+                    document.getElementById(d.playerName+"2").setAttribute("stroke-width","1")
+                    document.getElementById(d.playerName+"3").setAttribute("stroke-width","1")
+                    document.getElementById(d.playerName+"4").setAttribute("stroke-width","1")
+                });
+
+            bowlingData.forEach(player =>{                    
+                bowlingsvg.append("line")
+                    .attr("y1",player.y)
+                    .attr("y2",parallelEconomy(player.economy))
+                    .attr("x1",labelPosition)
+                    .attr("x2",axisPosition[0])
+                    .attr("class", player.teamNumber)
+                    .style("stroke-lineCap","round")
+                    .attr("id", player.playerName+"1")
                 bowlingsvg.append("line")
                     .attr("y1",parallelEconomy(player.economy))
                     .attr("y2",parallelRuns(player.runs))
                     .attr("x1",axisPosition[0])
                     .attr("x2",axisPosition[1])
                     .attr("class", player.teamNumber)
+                    .style("stroke-lineCap","round")
+                    .attr("id", player.playerName+"2")
                 bowlingsvg.append("line")
                     .attr("y1",parallelRuns(player.runs))
                     .attr("y2",parallelWickets(player.wickets))
                     .attr("x1",axisPosition[1])
                     .attr("x2",axisPosition[2])
                     .attr("class", player.teamNumber)
+                    .style("stroke-lineCap","round")
+                    .attr("id", player.playerName+"3")
                 bowlingsvg.append("line")
                     .attr("y1",parallelWickets(player.wickets))
                     .attr("y2",parallelOvers(player.overs))
                     .attr("x1",axisPosition[2])
                     .attr("x2",axisPosition[3])
                     .attr("class", player.teamNumber)
+                    .style("stroke-lineCap","round")
+                    .attr("id", player.playerName+"4")
+                
             })
-            
-            // parallelX.domain(["economy","runs","overs","wickets"])
-            // console.log(parallelX("economy"))
-            // parallelX.domain(dimensions = (bowlingData).filter(d=> {
-            //     console.log(d)
-            //     return d != "name" && (parallelY[d] = d3.scaleLinear()
-            //         .domain(d3.extent(bowlingData, function(p) { return +p[d]; }))
-            //         .range([gameBowlingHeight, 0]));
-            //   }));
         }
         if(gameData.result === "no result"){
             let timelineText = overviewsvg.append("text")
