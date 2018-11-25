@@ -15,7 +15,7 @@ class GameView {
         this.gameOverviewHeight = 225;
         this.gameBattingWidth = 600;//gameBattingPlot.node().getBoundingClientRect().width-500;
         this.gameBattingHeight = 400;
-        this.gameBowlingWidth = 700;//gameBowlingPlot.node().getBoundingClientRect().width;
+        this.gameBowlingWidth = 800;//gameBowlingPlot.node().getBoundingClientRect().width;
         this.gameBowlingHeight = 400;
 
         //add the svg to the div
@@ -32,13 +32,7 @@ class GameView {
         this.playerData = playerData
 
         this.battingPlotGroup = this.battingsvg.append('g')
-        this.xRunsAxis = d3.axisBottom().tickFormat(d3.format(".0s"));
-        this.xRunAx = this.battingPlotGroup.append("g").classed("x-axis", true)
-            .attr("transform", "translate(0," + this.gameBattingHeight + ")");
-        
-        this.yRunsAxis = d3.axisLeft();
-        this.yRunAx = this.battingPlotGroup.append("g").classed("y-axis", true)
-            .attr("transform", "translate(" + this.margin.left + ", 0)");
+        this.bowlingPlotGroup = this.bowlingsvg.append('g')
 
         d3.select('#gameBattingPlot')
             .append('div')
@@ -63,6 +57,10 @@ class GameView {
         let battingHeight = this.gameBattingHeight
         let battingPlotGroup = this.battingPlotGroup
         let battingsvg = this.battingsvg
+        let gameBowlingWidth = this.gameBowlingWidth
+        let gameBowlingHeight = this.gameBowlingHeight
+        let bowlingPlotGroup = this.bowlingPlotGroup
+        let bowlingsvg = this.bowlingsvg
         function tooltipRender(data) {
             let text = "<h2>Player Name: "+ data.playerName +"<p>Runs: "+ data.runs +"</p><p>Strike Rate: " + data.strikeRate + "</p><p>Balls: " + data.balls + "</p><p>Team: " + data.team + "</p></h2>";
             return text;
@@ -74,13 +72,13 @@ class GameView {
                 .classed("runsPathTeam2",true)
             let xRunsAxis = d3.axisBottom();
             let xAxisBattingHeight = battingHeight-50
-            let xRunAx = battingPlotGroup.append("g").classed("x-axis", true)
+            let xRunAx = battingPlotGroup.append("g").classed("runs-x-axis", true)
                 .attr("transform", "translate(0," + xAxisBattingHeight + ")");
             let yRunsAxis = d3.axisLeft();
-            let yRunAx = battingPlotGroup.append("g").classed("y-axis", true)
+            let yRunAx = battingPlotGroup.append("g").classed("runs-y-axis", true)
                 .attr("transform", "translate(" + margin.left + ", 0)");
-            battingPlotGroup.append('text').classed('axis-label-x', true);
-            battingPlotGroup.append('text').classed('axis-label-y', true);       
+            battingPlotGroup.append('text').classed('runs-axis-label-x', true);
+            battingPlotGroup.append('text').classed('runs-axis-label-y', true);       
             let timelineText = overviewsvg.append("text")
             timelineText.append("tspan")
                 .text("Date: "+selectedGame.date)
@@ -201,26 +199,26 @@ class GameView {
                 if(parseInt(player.runs)>parseInt(maxRuns)) maxRuns=player.runs
             })
             let xRunScale = d3.scaleLinear()
-                       .range([margin.left, battingWidth-50])
-                       .domain([0,maxPlayers-1])
+                        .range([margin.left, battingWidth-50])
+                        .domain([0,maxPlayers-1])
                         .nice();
             let yRunScale = d3.scaleLinear()
-                       .range([margin.top, battingHeight-50])
-                       .domain([maxRuns,0])
-                       .nice();               
+                        .range([margin.top, battingHeight-50])
+                        .domain([maxRuns,0])
+                        .nice();               
             xRunsAxis.scale(xRunScale);
             yRunsAxis.scale(yRunScale);
-            let axisXLabel = d3.select('.axis-label-x')
+            let axisXLabel = d3.select('.runs-axis-label-x')
                 .text("Player Number")
                 .style("text-anchor", "middle")
                 .attr('transform', 'translate(' + (battingWidth / 2) + ', ' + (battingHeight-5) + ')');
-            let axisYLabel = d3.select('.axis-label-y')    
+            let axisYLabel = d3.select('.runs-axis-label-y')    
                 .text("Runs")
                 .style("text-anchor", "middle")
                 .attr('transform', 'translate(' + (margin.left / 2 ) + ', ' + (battingHeight / 2) + ')rotate(-90)');        
         
-            d3.select(".x-axis").call(xRunsAxis.ticks(maxPlayers));
-            d3.select(".y-axis").call(yRunsAxis);
+            d3.select(".runs-x-axis").call(xRunsAxis.ticks(maxPlayers));
+            d3.select(".runs-y-axis").call(yRunsAxis);
             
             let runsPlot = battingsvg.selectAll("circle").data(runsData);
             runsPlot.exit()
@@ -249,7 +247,6 @@ class GameView {
                 .x((d) => xRunScale(d.number))
                 .y((d) => yRunScale(d.runs));
 
-
             let runsPlotTeam1 = battingsvg.select(".runsPathTeam1").data(runsDataTeam1);
             runsPlotTeam1.exit()
                 .remove();        
@@ -265,6 +262,146 @@ class GameView {
                 .classed("runsPathTeam2",true);
             runsPlotTeam2 = runsPlotTeam2.merge(runsPlotEnterTeam2);
             runsPlotTeam2.attr("d", battingLineGenerator(runsDataTeam2));
+
+            let bowlDataTeam1 = selectedGame.firstInnings.bowling.players
+            index=0
+            bowlDataTeam1.forEach(player=>{
+                player.teamNumber = "team1"
+                player.team = selectedGame.secondInnings.batting.team
+                player.number = index
+                index = index+1
+            })
+            let bowlDataTeam2 = selectedGame.secondInnings.bowling.players
+            index=0
+            bowlDataTeam2.forEach(player=>{
+                player.teamNumber = "team2"
+                player.team = selectedGame.firstInnings.batting.team
+                player.number = index
+                index = index+1
+            })
+
+            let bowlingData = bowlDataTeam1.concat(bowlDataTeam2)
+            console.log(selectedGame)
+            let bowlingAxisHeight = gameBowlingHeight-20
+            function contstructParallelAxes(bowlingData){
+                let maxWickets = 0
+                let maxRuns = 0
+                let maxEconomy = 0
+                let maxOvers = 0
+                bowlingData.forEach(player=>{
+                    if(player.runs > maxRuns) maxRuns = Number(player.runs)
+                    if(player.wickets > maxWickets) maxWickets = Number(player.wickets)
+                    if(player.economy > maxEconomy) maxEconomy = Number(player.economy)
+                    if(player.overs > maxOvers) maxOvers = Number(player.overs)
+                })
+                return [maxEconomy,maxRuns,maxWickets,maxOvers]
+            }
+            let parallelAxes = contstructParallelAxes(bowlingData)
+            let parallelEconomy = d3.scaleLinear()
+                .range([margin.top, bowlingAxisHeight])
+                .domain([parallelAxes[0],0])
+                .nice()
+            let parallelRuns = d3.scaleLinear()
+                .range([margin.top, bowlingAxisHeight])
+                .domain([parallelAxes[1], 0])
+                .nice()
+            let parallelWickets = d3.scaleLinear()
+                .range([margin.top, bowlingAxisHeight])
+                .domain([parallelAxes[2], 0])
+                .nice()
+            let parallelOvers = d3.scaleLinear()
+                .range([margin.top, bowlingAxisHeight])
+                .domain([parallelAxes[3], 0])
+                .nice()
+            bowlingData.forEach(player=>{
+                player.econScale = parallelEconomy
+                player.runsScale = parallelRuns
+                player.wicketsScale = parallelWickets
+                player.oversScale = parallelOvers
+            })
+            console.log(bowlingData)
+            let axisPosition = []
+            axisPosition.push(margin.left+100)
+            let bowlAxisEconomy = d3.axisRight()
+            bowlingPlotGroup.append("g").classed("economy-axis", true)
+                .attr("transform", "translate(" + axisPosition[0] + ", 0)");
+            bowlingPlotGroup.append('text').classed('economy-label', true);
+            bowlAxisEconomy.scale(parallelEconomy);
+            d3.select(".economy-axis").call(bowlAxisEconomy)
+            let labelHeight = bowlingAxisHeight+17
+            let economyLabel = d3.select('.economy-label')
+                .text("Economy")
+                .style("text-anchor", "middle")
+                .attr('transform', 'translate(' + axisPosition[0] + ', ' + (labelHeight) + ')');
+
+            let bowlAxisRuns = d3.axisRight()
+            axisPosition.push(Number(axisPosition)+Number(gameBowlingWidth/4))
+            bowlingPlotGroup.append("g").classed("runs-axis", true)
+                .attr("transform", "translate(" + axisPosition[1] + ", 0)");
+            bowlingPlotGroup.append('text').classed('runs-label', true);
+            bowlAxisRuns.scale(parallelRuns)
+            d3.select(".runs-axis").call(bowlAxisRuns)
+            let runsLabel = d3.select('.runs-label')
+                .text("Runs Conceded")
+                .style("text-anchor", "middle")
+                .attr('transform', 'translate(' + axisPosition[1] + ', ' + (labelHeight) + ')');
+            
+            let bowlAxisWickets = d3.axisRight()
+            axisPosition.push(Number(axisPosition[1])+Number(gameBowlingWidth/4))
+            bowlingPlotGroup.append("g").classed("wickets-axis", true)
+                .attr("transform", "translate(" + axisPosition[2] + ", 0)");
+            bowlingPlotGroup.append('text').classed('wickets-label', true);
+            bowlAxisWickets.scale(parallelWickets)
+            d3.select(".wickets-axis").call(bowlAxisWickets.ticks(parallelAxes[2]))
+            let wicketsLabel = d3.select('.wickets-label')
+                .text("Wickets Taken")
+                .style("text-anchor", "middle")
+                .attr('transform', 'translate(' + axisPosition[2] + ', ' + (labelHeight) + ')');
+
+            let bowlAxisOvers = d3.axisRight()
+            axisPosition.push(Number(axisPosition[2])+Number(gameBowlingWidth/4))
+            bowlingPlotGroup.append("g").classed("overs-axis", true)
+                .attr("transform", "translate(" + axisPosition[3] + ", 0)");
+            bowlingPlotGroup.append('text').classed('overs-label', true);
+            bowlAxisOvers.scale(parallelOvers)
+            d3.select(".overs-axis").call(bowlAxisOvers.ticks(parallelAxes[3]))
+            let oversLabel = d3.select('.overs-label')
+                .text("Overs Bowled")
+                .style("text-anchor", "middle")
+                .attr('transform', 'translate(' + axisPosition[3] + ', ' + (labelHeight) + ')');
+            
+            bowlingsvg.selectAll(".team1").remove()
+            bowlingsvg.selectAll(".team2").remove()
+            bowlingData.forEach(player =>{
+                
+                bowlingsvg.append("line")
+                    .attr("y1",parallelEconomy(player.economy))
+                    .attr("y2",parallelRuns(player.runs))
+                    .attr("x1",axisPosition[0])
+                    .attr("x2",axisPosition[1])
+                    .attr("class", player.teamNumber)
+                bowlingsvg.append("line")
+                    .attr("y1",parallelRuns(player.runs))
+                    .attr("y2",parallelWickets(player.wickets))
+                    .attr("x1",axisPosition[1])
+                    .attr("x2",axisPosition[2])
+                    .attr("class", player.teamNumber)
+                bowlingsvg.append("line")
+                    .attr("y1",parallelWickets(player.wickets))
+                    .attr("y2",parallelOvers(player.overs))
+                    .attr("x1",axisPosition[2])
+                    .attr("x2",axisPosition[3])
+                    .attr("class", player.teamNumber)
+            })
+            
+            // parallelX.domain(["economy","runs","overs","wickets"])
+            // console.log(parallelX("economy"))
+            // parallelX.domain(dimensions = (bowlingData).filter(d=> {
+            //     console.log(d)
+            //     return d != "name" && (parallelY[d] = d3.scaleLinear()
+            //         .domain(d3.extent(bowlingData, function(p) { return +p[d]; }))
+            //         .range([gameBowlingHeight, 0]));
+            //   }));
         }
         if(gameData.result === "no result"){
             let timelineText = overviewsvg.append("text")
@@ -273,6 +410,18 @@ class GameView {
                 .attr("y","150")
                 .attr("x",gameOverviewWidth/2)
                 .style("text-anchor", "middle");
+
+            this.battingsvg.selectAll("circle")
+                .remove()
+            this.battingsvg.selectAll("text")
+                .remove()
+            this.battingsvg.select(".runs-x-axis")
+                .remove()
+            this.battingsvg.select(".runs-y-axis")
+                .remove()   
+            this.battingsvg.selectAll("path")
+                .remove()
+            
         }
         else{
             this.foundGameFlag=0
@@ -300,6 +449,17 @@ class GameView {
                 .attr("y","150")
                 .attr("x",gameOverviewWidth/2)
                 .style("text-anchor", "middle");
+
+            this.battingsvg.selectAll("circle")
+                .remove()
+            this.battingsvg.selectAll("text")
+                .remove()
+            this.battingsvg.select(".runs-x-axis")
+                .remove()
+            this.battingsvg.select(".runs-y-axis")
+                .remove()   
+            this.battingsvg.selectAll("path")
+                .remove()
         }
     };
     reset(){
@@ -311,9 +471,9 @@ class GameView {
             .remove()
         this.battingsvg.selectAll("text")
             .remove()
-        this.battingsvg.select(".x-axis")
+        this.battingsvg.select(".runs-x-axis")
             .remove()
-        this.battingsvg.select(".y-axis")
+        this.battingsvg.select(".runs-y-axis")
             .remove()   
         this.battingsvg.selectAll("path")
             .remove()

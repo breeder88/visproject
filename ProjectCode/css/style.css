@@ -256,11 +256,13 @@ div.tooltip {
 }
 
 .team1{
-    fill: red
+    fill: red;
+    stroke: red
 }
 
 .team2{
-    fill: blue
+    fill: blue;
+    stroke: blue
 }
 .runsPathTeam1{
     fill: none;
