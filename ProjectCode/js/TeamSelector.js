@@ -32,7 +32,8 @@ class TeamSelector{
         d3.select('#teamSelector')
             .append('div')
             .attr("class", "tooltip")
-            .style("opacity", 0);
+            .style("opacity", 0)
+            .style('z-index', 9999);
 	};
 	update(year){
         this.svg.selectAll("text").remove()
@@ -107,6 +108,7 @@ class TeamSelector{
             .on("click", d=>{
                 this.gameTimeline.reset();
                 this.reset(year);
+                this.gameView.reset();
             });
         let buttonLabel=this.svg.append("text")
         buttonLabel.text("Pick Another Team")

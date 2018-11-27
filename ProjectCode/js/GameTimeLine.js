@@ -131,7 +131,7 @@ class GameTimeLine{
 		this.svg.selectAll("image").remove();
 	};
 	tooltipRender(data) {
-		let text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Tie Game</p><p>Winner:" + data.winner + "</p></h2>";
+		let text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Tie Game</p><p>Winner: " + data.winner + "</p></h2>";
 		if (data.result==="normal"){
 			if(data.win_by_runs>0){
 				text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Winner: " + data.winner + " by "+ data.win_by_runs+ " runs</p></h2>";

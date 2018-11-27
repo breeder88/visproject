@@ -268,10 +268,12 @@ div.tooltip {
 }
 
 .team1{
-    fill: red
+    fill: red;
+    stroke: red
 }
 
 .team2{
+<<<<<<< HEAD
     fill: blue
 }
 table {
@@ -329,3 +331,29 @@ tr.selected {
 path.selected {
     fill: #4a89ef;
 }
+=======
+    fill: blue;
+    stroke: blue
+}
+
+.runsPathTeam1{
+    fill: none;
+    stroke: red;
+}
+.runsPathTeam2{
+    fill: none;
+    stroke: blue;
+}
+.testClass{
+    fill: black;
+    stroke: black;
+}
+
+.y-label,
+.x-label{
+    width: 1%7;
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}
+>>>>>>> 22d5ded9d5d36d1dbcb94845d2e720660987717e
