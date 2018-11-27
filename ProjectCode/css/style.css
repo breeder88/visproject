@@ -1,10 +1,14 @@
 
-
+html {
+    zoom: 67%;
+}
 body {
     font-family: Lato;
     padding:40px;
 }
-
+main {
+    width: 100%;
+}
 h1 {
     font-family: "Arvo";
     font-size:35px;
@@ -20,6 +24,9 @@ h1 {
     stroke: #FFF;
     stroke-width: 4;
 }
+path{
+    fill: none;
+}
 
 .yeartext, .tilestext, .brushtext{
     text-anchor: middle;
@@ -27,7 +34,6 @@ h1 {
     fill: #565656;
     stroke-width: 0.1px;
 }
-
 
 .electoralVotesNote, .votesPercentageNote{
     text-anchor: middle;
@@ -118,13 +124,19 @@ h1 {
 .votesPercentage{
     stroke: #eee;
 }
-
+image {
+    opacity: 0.7;
+}
 .highlighted{
-    filter: brightness(50%)
+    /*filter: brightness(50%)*/
+    opacity: 1.0;
 }
 
 .brush .selection {
     fill-opacity: .5;
+}
+image > .selected{
+    opacity: 1.0;
 }
 
 .selected{
@@ -261,4 +273,59 @@ div.tooltip {
 
 .team2{
     fill: blue
+}
+table {
+    /*border-collapse: collapse;*/
+    font-size: 20px;
+    padding-left: 100px;
+}
+
+th {
+    font-weight: bold;
+    text-align: left;
+    padding-right: 6px;
+    min-width: 125px;
+    font-size: 24px;
+}
+
+thead td , th{
+    cursor: s-resize;
+}
+
+tbody tr:first-child td {
+    padding-top: 5px;
+}
+
+tbody th{
+    cursor:pointer;
+    font-weight: bold;
+}
+tbody td {
+    padding-right: 5px;
+    padding-left: 5px;
+    /*border-left: solid 1px #000;*/
+    color:black;
+}
+
+tbody tr:hover {
+    background-color: #e5efff;
+}
+/*thead > tr > td{
+    font-weight: bold;
+}*/
+th, td{
+    border-collapse: collapse;
+    border-right: 1px solid grey;
+}
+tr>td: nth-child(6){
+    border-right: none;
+}
+th: nth-child(6){
+    border-right: none;
+}
+tr.selected {
+    background-color: #e5efff;
+}
+path.selected {
+    fill: #4a89ef;
 }

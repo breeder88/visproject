@@ -7,7 +7,6 @@ class Map {
     constructor (){
         console.log("inside map constructor");
        // this.rankings = rankings;
-        console.log(this.rankings);
 
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
         let map = d3.select("#india-map");
@@ -59,7 +58,6 @@ class Map {
 
     update(year,rankings) {
 		//let fill = {"AP":"#ef792f","TN":"#f1f433","KA":"#d3381d","MH":"#1c62d2","PB":"#d11b4f","DL":"#b70034","RJ":"#0903b7","WB":"#110101","KL":"#FFF"};
-        console.log("inside map update, year: ",year);
         //data of playing teams
         var playing = rankings.filter(d => {
             if(d.Year === year)
@@ -71,14 +69,11 @@ class Map {
             teams = teams.concat(data.Team);
         }
 
-        console.log("teams playing in ",year," : ",teams);
         //teamID:stateID dict
         var teamdict = {};
         for(var team of teams){
             teamdict[team] = this.codes[team];
         } 
-        console.log("teamID:stateID dict for playing states: ",teamdict);
-
 		let paths = this.g.selectAll("path")
                             .data(this.statePaths);
         let pathsEnter = paths.enter().append("path");
@@ -86,17 +81,46 @@ class Map {
         paths = pathsEnter.merge(paths);
 	    paths.attr("d", d => d.d)
 	  		 .attr("id",d => d.id)
-	  		 .style("fill",d => {if(Object.values(teamdict).indexOf(d.id)!==-1) {console.log("d.id: ",d.id);return "#8b8d91";} else return "none";})
-             .style("stroke","black")
-             .attr("class",d => {if(Object.values(teamdict).indexOf(d.id)!==-1) {return d.Team} });
-             /*.on("mouseover",d =>{
-                console.log("hovered",true);
-                console.log("mouseover ",this.class);
-             })
-             .on("mouseleave",d => {
-                d.classed("hovered",false);
-                console.log("mouseover ",this.class);
-             });*/
+	  		 .style("fill",d => {
+                if(Object.values(teamdict).indexOf(d.id)!==-1) 
+                    return "#c2d8fc";
+                else 
+                    return "none";
+            })
+             .style("stroke","#0c2f68")
+             .attr("class",d => {if(Object.values(teamdict).indexOf(d.id)!==-1) {return "playing"} })
+             .on("click", d => {
+                console.log("clicked ",d.Team," on the table!");
+                var mapPaths = document.getElementsByTagName("path");
+                for(var path of mapPaths){
+                    if(Object.values(teamdict).indexOf(d.id)!==-1){
+                        path.setAttribute("class","playing");
+                    }
+                    else
+                        path.setAttribute("class","");
+                }
+                d3.selectAll("path").filter(path => path===d).classed("selected",true);
+            });
+        var colors = {};
+        var pathElements = document.getElementsByTagName("path");
+        for(var path of pathElements){
+            if(path.getAttribute("class") === "playing"){
+                console.log(path.getAttribute("id")," is playing.");
+                path.addEventListener("mouseover",event => {
+                     event.target.setAttribute("style","fill: #4a89ef; stroke:#0c2f68;stroke-width:3px;");
+                });
+                path.addEventListener("mouseleave",event => {
+                     event.target.setAttribute("style","fill: #c2d8fc; stroke:#0c2f68;");
+                });
+                path.addEventListener("click",event => {
+                    var id = event.target.getAttribute("id");
+                    console.log("clicked ",id," on the map!");
+                });
+            }
+        }
 
     };
+    updateHighlight(){
+
+    }
 }

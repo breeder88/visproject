@@ -63,7 +63,6 @@ class SeasonTimeline {
                 that.map.update(d.Year,that.rankings);
                 that.table.updateTable(d.Year,that.rankings);
             });
-
         let timelineText = this.svg.selectAll("text")
             .data(this.seasonWinners)
             .enter()
@@ -81,4 +80,7 @@ class SeasonTimeline {
             .attr("x",(d,i)=>i*this.svgWidth/9+125)
             .style("text-anchor", "middle");
     };
+    updateHighlight(){
+
+    }
 }

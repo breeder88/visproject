@@ -10,6 +10,7 @@ d3.json('Datasets/PlayerData.json').then( playerData => {
             indiaMap = new Map();
             indiaMap.update("2008",rankings);
             table = new Table();
+            table.createTable(rankings);
             table.updateTable("2008",rankings);
 
         });
