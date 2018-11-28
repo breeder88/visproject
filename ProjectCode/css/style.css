@@ -325,7 +325,7 @@ tr>td: nth-child(6){
 th: nth-child(6){
     border-right: none;
 }
-tr.selected {
+tr.clicked {
     background-color: #e5efff;
 }
 path.selected {
@@ -355,5 +355,13 @@ path.selected {
     display: inline-block;
     float: left;
     padding-right: 5px;
+}
+tr.winner:after {
+    /*display: block;
+    content: "winner";
+    width: 3px;
+    height: 5px;
+    background: transparent url('/visproject/ProjectCode/TeamLogos/trophy.jpg') no-repeat;*/
+    content: url('/visproject/ProjectCode/TeamLogos/trophy.png');
 }
 >>>>>>> 22d5ded9d5d36d1dbcb94845d2e720660987717e

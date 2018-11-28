@@ -17,6 +17,17 @@ class Table{
 			"GL":"Gujarat Lions",
 			"RCB":"Royal Challengers Bangalore"
 		};
+        this.winners = {
+            2008:"RR",
+            2009:"DC",
+            2010:"CSK",
+            2011:"CSK",
+            2012:"KKR",
+            2013:"MI",
+            2014:"KKR",
+            2015:"MI",
+            2016:"SRH"
+        };
 		this.tableHeaders = ["Team","Played","Won","Lost","NRR","Points"];
 		this.cell = {
             "width": 120,
@@ -103,9 +114,23 @@ class Table{
           .on("click", d => {
           	console.log("clicked ",d.Team," on the table!");
           	var tableRows = document.getElementsByTagName("tr");
-          	for(var row of tableRows)
-          		row.setAttribute("class","");
-          	d3.selectAll("tr").filter(tr => tr===d).classed("selected",true);
+          	for(var row of tableRows){
+                var cls = row.getAttribute("class");
+                if(cls !== null){
+                    if(row.getAttribute("class").indexOf("winner") === -1)
+                        row.setAttribute("class","");
+                    else
+                        row.setAttribute("class","winner");
+                }
+                else
+                    row.setAttribute("class","");
+
+            }
+          	d3.selectAll("tr").filter(tr => tr===d).classed("clicked",true);
+          })
+          .attr("class",d =>{
+            if(d.Team === this.winners[this.activeYear])
+                return "winner";
           });
         var td = tr.selectAll("td")
         	       .data(d => {
@@ -120,7 +145,7 @@ class Table{
         	       		else
         	       			vis = "text";
         	       		var obj = {"vis":vis,"value":value};
-        	       		return obj
+        	       		return obj;
         	       	});
         	       })
         	       .enter()
@@ -142,9 +167,7 @@ class Table{
         svg.append("text")
            .attr("x",d => this.gameScale(d.value))
            .attr("y", this.cell.height/2+5)
-           .text(d => d.value)
-           //.attr("fill","white")
-           .attr("class","label");
+           .text(d => d.value);
         var textcols = cols.filter(td => td.vis === "text");
         textcols.text(d => d.value)
                 .style("font-weight","bold");
