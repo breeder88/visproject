@@ -173,4 +173,7 @@ class Table{
                 .style("font-weight","bold");
 
 	}
+    updateHighlight(year,stateId){
+        
+    }
 }
