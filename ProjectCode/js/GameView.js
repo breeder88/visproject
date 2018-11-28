@@ -286,7 +286,6 @@ class GameView {
             })
 
             let bowlingData = bowlDataTeam1.concat(bowlDataTeam2)
-            console.log(bowlingData)
             let bowlingAxisHeight = gameBowlingHeight-20
             function contstructParallelAxes(bowlingData){
                 let maxWickets = 0
@@ -510,6 +509,18 @@ class GameView {
         this.battingsvg.select(".runs-y-axis")
             .remove()   
         this.battingsvg.selectAll("path")
+            .remove()
+        this.bowlingsvg.selectAll("line")
+            .remove()
+        this.bowlingsvg.selectAll("text")
+            .remove()
+        this.bowlingsvg.select(".economy-axis")
+            .remove()
+        this.bowlingsvg.select(".runs-axis")
+            .remove()
+        this.bowlingsvg.select(".wickets-axis")
+            .remove()
+        this.bowlingsvg.select(".overs-axis")
             .remove()
     }
 }
