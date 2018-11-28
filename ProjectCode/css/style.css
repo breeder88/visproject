@@ -344,10 +344,6 @@ path.selected {
     fill: none;
     stroke: blue;
 }
-.testClass{
-    fill: black;
-    stroke: black;
-}
 
 .y-label,
 .x-label{
