@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
     <title>Visualization for Data Science Fall 2018 - IPL Visualization</title>
     <link rel="stylesheet" href="css/style.css"/>
     <script src="https://d3js.org/d3.v5.js"></script>
@@ -32,7 +33,21 @@
 <!-- team stats table -->
 <div id = "team-table" class = "view">
     <h2>Season Team Rankings</h2>
-    <div id="rankTable" class = "view"></div>
+    <table id="rankTable" class = "view">
+        <thead>
+            <tr>
+                <th>Team</th>
+                <th>Played</th>
+                <th>Won</th>
+                <th>Lost</th>
+                <th>Net Run Rate</th>
+                <th>Points</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+
+    </table>
 </div>
 
 <!-- team timeline -->
@@ -57,6 +72,7 @@
 <script type="application/javascript" src="js/TeamSelector.js"></script>
 <script type="application/javascript" src="js/GameTimeLine.js"></script>
 <script type="application/javascript" src="js/GameView.js"></script>
+<script type="application/javascript" src="js/Table.js"></script>
 <!-- <script type="application/javascript" src="public/js/script.js"></script>-->
 
 </body>
