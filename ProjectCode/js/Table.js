@@ -94,7 +94,7 @@ class Table{
 	}
 	updateTable(year,rankings){
 		this.activeYear = year;
-		console.log("In updatetable, rankings: ",rankings);
+		//console.log("In updatetable, rankings: ",rankings);
 		var yearData = rankings.filter(d => d.Year === year);
 		var tableData = [];
 		for(var data of yearData){
@@ -112,7 +112,7 @@ class Table{
         tr = trEnter.merge(tr);
         tr.attr("id", d => d.Team)
           .on("click", d => {
-          	console.log("clicked ",d.Team," on the table!");
+          	//console.log("clicked ",d.Team," on the table!");
           	var tableRows = document.getElementsByTagName("tr");
           	for(var row of tableRows){
                 var cls = row.getAttribute("class");

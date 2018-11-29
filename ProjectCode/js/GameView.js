@@ -15,7 +15,7 @@ class GameView {
         this.gameOverviewHeight = 225;
         this.gameBattingWidth = 600;//gameBattingPlot.node().getBoundingClientRect().width-500;
         this.gameBattingHeight = 400;
-        this.gameBowlingWidth = 800;//gameBowlingPlot.node().getBoundingClientRect().width;
+        this.gameBowlingWidth = 1000;//gameBowlingPlot.node().getBoundingClientRect().width;
         this.gameBowlingHeight = 400;
 
         //add the svg to the div
@@ -324,7 +324,7 @@ class GameView {
                 player.oversScale = parallelOvers
             })
             let axisPosition = []
-            axisPosition.push(margin.left+150)
+            axisPosition.push(margin.left+200)
             let bowlAxisEconomy = d3.axisRight()
             bowlingPlotGroup.append("g").classed("economy-axis", true)
                 .attr("transform", "translate(" + axisPosition[0] + ", 0)");

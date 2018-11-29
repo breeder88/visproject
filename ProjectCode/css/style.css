@@ -125,11 +125,11 @@ path{
     stroke: #eee;
 }
 image {
-    opacity: 0.7;
+    opacity: 1;
 }
 .highlighted{
-    /*filter: brightness(50%)*/
-    opacity: 1.0;
+    filter: brightness(50%)
+    /*opacity: 1.0;*/
 }
 
 .brush .selection {
@@ -232,7 +232,7 @@ h3{
     overflow: hidden;
 }
 .button{
-    fill:red
+    fill:#d95f02
 }
 .highlightedButton{
     fill:darkred
@@ -268,14 +268,32 @@ div.tooltip {
 }
 
 .team1{
-    fill: red;
-    stroke: red
+    fill: #d95f02;
+    stroke: #d95f02
 }
 
 .team2{
-<<<<<<< HEAD
-    fill: blue
+    fill: #1f78b4;
+    stroke: #1f78b4
 }
+
+.runsPathTeam1{
+    fill: none;
+    stroke:#d95f02;
+}
+.runsPathTeam2{
+    fill: none;
+    stroke: #1f78b4;
+}
+
+.y-label,
+.x-label{
+    width: 1%7;
+    display: inline-block;
+    float: left;
+    padding-right: 5px;
+}
+
 table {
     /*border-collapse: collapse;*/
     font-size: 20px;
@@ -328,30 +346,7 @@ th: nth-child(6){
 tr.clicked {
     background-color: #e5efff;
 }
-path.selected {
-    fill: #4a89ef;
-}
-=======
-    fill: blue;
-    stroke: blue
-}
 
-.runsPathTeam1{
-    fill: none;
-    stroke: red;
-}
-.runsPathTeam2{
-    fill: none;
-    stroke: blue;
-}
-
-.y-label,
-.x-label{
-    width: 1%7;
-    display: inline-block;
-    float: left;
-    padding-right: 5px;
-}
 tr.winner:after {
     /*display: block;
     content: "winner";
@@ -360,4 +355,8 @@ tr.winner:after {
     background: transparent url('/visproject/ProjectCode/TeamLogos/trophy.jpg') no-repeat;*/
     content: url('/visproject/ProjectCode/TeamLogos/trophy.png');
 }
->>>>>>> 22d5ded9d5d36d1dbcb94845d2e720660987717e
+
+.highlightedText{
+    font-weight: bold;
+    font-size: 18px;
+}
