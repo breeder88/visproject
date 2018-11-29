@@ -27,6 +27,17 @@ h1 {
 path{
     fill: none;
 }
+.playing{
+    fill: #c2d8fc;
+}
+.playing:hover{
+    fill: #4a89ef;
+    stroke-width: 3px;
+}
+.map-selected{
+    fill: #4a89ef;
+    stroke-width: 3px;
+}
 
 .yeartext, .tilestext, .brushtext{
     text-anchor: middle;
@@ -327,13 +338,6 @@ th: nth-child(6){
 }
 tr.clicked {
     background-color: #e5efff;
-}
-path.selected {
-    fill: #4a89ef;
-}
-=======
-    fill: blue;
-    stroke: blue
 }
 
 .runsPathTeam1{
