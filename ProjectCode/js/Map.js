@@ -54,6 +54,21 @@ class Map {
         this.activeYear = 2008;
         //teamID:stateID dictionary
         this.codes = {"RR":"RJ","DD":"DL","SRH":"AP","DC":"AP","MI":"MH","RPS":"MH","PWI":"MH","CSK":"TN","KTK":"KL","KXIP":"PB","KKR":"WB","RCB":"KA","GL":"GJ"};
+        this.names = {
+            "KKR":"Kolkatta Knight Riders",
+            "SRH":"Sun Risers Hyderabad",
+            "DC":"Deccan Chargers",
+            "CSK":"Chennai Super Kings",
+            "DD":"Delhi Daredevils",
+            "KXIP":"Kings XI Punjab",
+            "MI":"Mumbai Indians",
+            "RR":"Rajasthan Royals",
+            "RPS":"Rising Pune Supergiants",
+            "KTK":"Kochi Tuskers Kerala",
+            "PWI":"Pune Warriors India",
+            "GL":"Gujarat Lions",
+            "RCB":"Royal Challengers Bangalore"
+        };
        
     };
 
@@ -75,6 +90,19 @@ class Map {
         for(var team of teams){
             teamdict[team] = this.codes[team];
         } 
+        //stateID:[teams] dict for tooltip
+        let tooltipDict = {};
+        for(var key of Object.keys(teamdict)){
+            if(tooltipDict[teamdict[key]] === undefined){
+                var val = [];
+                val = val.concat(this.names[key]);
+                tooltipDict[teamdict[key]] = val;
+            }
+            else{
+                tooltipDict[teamdict[key]] = tooltipDict[teamdict[key]].concat(this.names[key]);
+            }
+        }
+        let tooltip = d3.select(".tooltip");
 		let paths = this.g.selectAll("path")
                             .data(this.statePaths);
         let pathsEnter = paths.enter().append("path");
@@ -82,28 +110,35 @@ class Map {
         paths = pathsEnter.merge(paths);
 	    paths.attr("d", d => d.d)
 	  		 .attr("id",d => d.id)
-	  		 .style("fill",d => {
+	  		 /*.style("fill",d => {
                 if(Object.values(teamdict).indexOf(d.id)!==-1) 
                     return "#c2d8fc";
                 else 
                     return "none";
-            })
+            })*/
              .style("stroke","#0c2f68")
              .attr("class",d => {if(Object.values(teamdict).indexOf(d.id)!==-1) {return "playing"} })
-             .on("click", d => {
-                console.log("clicked ",d.Team," on the table!");
-                var mapPaths = document.getElementsByTagName("path");
-                for(var path of mapPaths){
-                    if(Object.values(teamdict).indexOf(d.id)!==-1){
-                        path.setAttribute("class","playing");
-                    }
-                    else
-                        path.setAttribute("class","");
+             .on("mouseover", d=>{
+                if(Object.values(teamdict).indexOf(d.id)!==-1)
+                    tooltip.html(this.tooltipRender({"state":d.n,"teams":tooltipDict[d.id]}) + "<br/>")
+                           .style("left", d3.event.pageX + "px")
+                           .style("top", d3.event.pageY + "px")
+                           .style("opacity", 1);
+            })
+            .on("mouseout", d=>{
+                tooltip.style("opacity",0);
+            })
+        var pathElements =  document.getElementsByClassName("playing");
+        for(var p of pathElements){
+            p.addEventListener("click",event => {
+                for(var e of pathElements){
+                    e.setAttribute("class","playing");
                 }
-                d3.selectAll("path").filter(path => path===d).classed("selected",true);
+                event.target.setAttribute("class","playing map-selected");
             });
+        }
         var colors = {};
-        var pathElements = document.getElementsByTagName("path");
+       /*var pathElements = document.getElementsByTagName("path");
         for(var path of pathElements){
             if(path.getAttribute("class") === "playing"){
                 console.log(path.getAttribute("id")," is playing.");
@@ -118,10 +153,21 @@ class Map {
                     console.log("clicked ",id," on the map!");
                 });
             }
-        }
+        }*/
 
     };
     updateHighlight(year,stateId){
 
+    }
+    tooltipRender(data){
+        var teams ="";
+        console.log("data[teams]: ",data["teams"]);
+        for(var i = 0; i<data["teams"].length; i++){
+            teams = teams+data["teams"][i]+"<br />";
+        }
+        let text ="<pre><h1>"+data["state"]+"</h1></pre>"+
+            "<div>"+teams+"</div>";
+        console.log(text);
+        return text;
     }
 }

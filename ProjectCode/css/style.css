@@ -27,6 +27,17 @@ h1 {
 path{
     fill: none;
 }
+.playing{
+    fill: #c2d8fc;
+}
+.playing:hover{
+    fill: #4a89ef;
+    stroke-width: 3px;
+}
+.map-selected{
+    fill: #4a89ef;
+    stroke-width: 3px;
+}
 
 .yeartext, .tilestext, .brushtext{
     text-anchor: middle;
