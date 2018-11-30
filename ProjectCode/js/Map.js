@@ -192,7 +192,6 @@ class Map {
                 }
             }
         }
-        this.selectTeam()
         console.log("teams representing clicked state: ",teams);
 
     }
