@@ -175,6 +175,8 @@ class Table{
         svg.append('rect')
            .attr('x',0)
            .attr('y',0)
+           .transition()
+           .duration(3000)
            .attr('width', d => this.gameScale(d.value))
            .attr('height', this.bar.height)
            .attr("fill", d => this.aggregateColorscale(d.value));
@@ -184,7 +186,14 @@ class Table{
            .text(d => d.value);
         var textcols = cols.filter(td => td.vis === "text");
         textcols.text(d => d.value)
-                .style("font-weight","bold");
+                .attr("style",d => {
+                    if(!Number.isInteger(+d.value) && !isNaN(+d.value)){
+                        if(+d.value > 0)
+                            return "color:green";
+                        else
+                            return "color:red";
+                    }
+                });
 
 	}
     updateHighlight(teamId){
