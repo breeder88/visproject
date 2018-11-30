@@ -11,21 +11,21 @@ class GameTimeLine{
 
         //fetch the svg bounds
         this.svgWidth = timeline.node().getBoundingClientRect().width;
-        this.svgHeight = 150;
+        this.svgHeight = 160;
 
         //add the svg to the div
         this.svg = timeline.append("svg")
             .attr("width", this.svgWidth)
             .attr("height", this.svgHeight);
 
-		this.timelineEnd=this.svgWidth-25
-		this.timelineStart=25
+		this.timelineEnd=this.svgWidth-50
+		this.timelineStart=160
 		let heightVal=30
 		this.winTickHeight=this.svgHeight/2-heightVal
 		this.loseTickHeight=this.svgHeight/2+heightVal
-		this.iconHeightWin=this.svgHeight/2-60
+		this.iconHeightWin=this.svgHeight/2-80
 		this.iconHeightLose=this.svgHeight/2
-		this.teamSize=50
+		this.teamSize=80
 		this.gameView = gameView
 		this.games = gameData;       
 		d3.select('#gameTimeline')
@@ -65,7 +65,18 @@ class GameTimeLine{
 		teamTimeline.exit()
 			.remove();    
 		let teamTimelineEnter = teamTimeline.enter().append("line")
-		teamTimeline = teamTimelineEnter.merge(teamTimeline)		
+		teamTimeline = teamTimelineEnter.merge(teamTimeline)	
+		
+		let timelineText = this.svg.append("text")
+		timelineText.append("tspan")
+                .text("Selected Team Won")
+                .attr("y","45")
+				.attr("x","0")
+
+		timelineText.append("tspan")
+                .text("Selected Team Lost")
+                .attr("y","105")
+                .attr("x","0")
 
 		teamTimeline.attr("y1",this.svgHeight/2)
 			.attr("y2",d=>{
@@ -129,6 +140,7 @@ class GameTimeLine{
 	reset(){
 		this.svg.selectAll("line").remove();
 		this.svg.selectAll("image").remove();
+		this.svg.selectAll("text").remove();
 	};
 	tooltipRender(data) {
 		let text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Tie Game</p><p>Winner: " + data.winner + "</p></h2>";

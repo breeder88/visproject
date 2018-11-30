@@ -12,7 +12,7 @@ class GameView {
 
         //fetch the svg bounds
         this.gameOverviewWidth = gameOverview.node().getBoundingClientRect().width;
-        this.gameOverviewHeight = 225;
+        this.gameOverviewHeight = 280;
         this.gameBattingWidth = 600;//gameBattingPlot.node().getBoundingClientRect().width-500;
         this.gameBattingHeight = 400;
         this.gameBowlingWidth = 1000;//gameBowlingPlot.node().getBoundingClientRect().width;
@@ -97,77 +97,89 @@ class GameView {
                 .style("text-anchor", "start");
             timelineText.append("tspan")
                 .text("First to bat: "+selectedGame.firstInnings.batting.team)
-                .attr("y","160")
-                .attr("x",gameOverviewWidth/4+75)
+                .attr("y","200")
+                .attr("x",gameOverviewWidth/30+75)
                 .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Runs: "+selectedGame.firstInnings.batting.runs)
-                .attr("y","175")
-                .attr("x",gameOverviewWidth/4+75)
+                .attr("y","215")
+                .attr("x",gameOverviewWidth/30+75)
                 .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Wickets: "+selectedGame.firstInnings.batting.wickets)
-                .attr("y","190")
-                .attr("x",gameOverviewWidth/4+75)
+                .attr("y","230")
+                .attr("x",gameOverviewWidth/30+75)
                 .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Run Rate: "+selectedGame.firstInnings.batting.runRate)
-                .attr("y","205")
-                .attr("x",gameOverviewWidth/4+75)
+                .attr("y","245")
+                .attr("x",gameOverviewWidth/30+75)
                 .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Overs: "+selectedGame.firstInnings.batting.overs)
-                .attr("y","220")
-                .attr("x",gameOverviewWidth/4+75)
+                .attr("y","260")
+                .attr("x",gameOverviewWidth/30+75)
                 .classed("team1",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Second to bat: "+selectedGame.secondInnings.batting.team)
-                .attr("y","160")
-                .attr("x",3*gameOverviewWidth/4+75)
+                .attr("y","200")
+                .attr("x",gameOverviewWidth/30+400)
                 .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Runs: "+selectedGame.secondInnings.batting.runs)
-                .attr("y","175")
-                .attr("x",3*gameOverviewWidth/4+75)
+                .attr("y","215")
+                .attr("x",gameOverviewWidth/30+400)
                 .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Wickets: "+selectedGame.secondInnings.batting.wickets)
-                .attr("y","190")
-                .attr("x",3*gameOverviewWidth/4+75)
+                .attr("y","230")
+                .attr("x",gameOverviewWidth/30+400)
                 .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Run Rate: "+selectedGame.secondInnings.batting.runRate)
-                .attr("y","205")
-                .attr("x",3*gameOverviewWidth/4+75)
+                .attr("y","245")
+                .attr("x",gameOverviewWidth/30+400)
                 .classed("team2",true)
                 .style("text-anchor", "middle");
             timelineText.append("tspan")
                 .text("Overs: "+selectedGame.secondInnings.batting.overs)
-                .attr("y","220")
-                .attr("x",3*gameOverviewWidth/4+75)
+                .attr("y","260")
+                .attr("x",gameOverviewWidth/30+400)
                 .classed("team2",true)
                 .style("text-anchor", "middle");
 
             overviewsvg.append("svg:image")
                 .attr("xlink:href", `TeamLogos/${selectedGame.firstInnings.batting.team}.png`)
-                .attr("width",150)
-                .attr("height",150)
-                .attr("x",gameOverviewWidth/4)
-                .attr("y","0")
+                .attr("width",125)
+                .attr("height",125)
+                .attr("x",gameOverviewWidth/30+15)
+                .attr("y","50")
             overviewsvg.append("svg:image")
                 .attr("xlink:href", `TeamLogos/${selectedGame.secondInnings.batting.team}.png`)
-                .attr("width",150)
-                .attr("height",150)
-                .attr("x",3*gameOverviewWidth/4)
-                .attr("y","0")
+                .attr("width",125)
+                .attr("height",125)
+                .attr("x",gameOverviewWidth/30+340)
+                .attr("y","50")
+
+            overviewsvg.append("circle")
+                .attr("cx", "10")
+                .attr("cy", "195")
+                .attr("r", "10")
+                .style("fill", "#d95f02");
+
+            overviewsvg.append("circle")
+                .attr("cx", "330")
+                .attr("cy", "195")
+                .attr("r", "10")
+                .style("fill", "#1f78b4");
             
             let runsDataTeam1 = selectedGame.firstInnings.batting.players
             let index=0
@@ -437,6 +449,12 @@ class GameView {
             })
         }
         if(gameData.result === "no result"){
+            this.overviewsvg.selectAll("text")
+                .remove()
+            this.overviewsvg.selectAll("image")
+                .remove()
+            this.overviewsvg.selectAll("circle")
+                .remove()
             let timelineText = overviewsvg.append("text")
             timelineText.append("tspan")
                 .text("No data available")
@@ -453,6 +471,18 @@ class GameView {
             this.battingsvg.select(".runs-y-axis")
                 .remove()   
             this.battingsvg.selectAll("path")
+                .remove()
+            this.bowlingsvg.selectAll("line")
+                .remove()
+            this.bowlingsvg.selectAll("text")
+                .remove()
+            this.bowlingsvg.select(".economy-axis")
+                .remove()
+            this.bowlingsvg.select(".runs-axis")
+                .remove()
+            this.bowlingsvg.select(".wickets-axis")
+                .remove()
+            this.bowlingsvg.select(".overs-axis")
                 .remove()
             
         }
@@ -476,6 +506,12 @@ class GameView {
             })
         }
         if(this.foundGameFlag===0){
+            this.overviewsvg.selectAll("text")
+                .remove()
+            this.overviewsvg.selectAll("image")
+                .remove()
+            this.overviewsvg.selectAll("circle")
+                .remove()
             let timelineText = overviewsvg.append("text")
             timelineText.append("tspan")
                 .text("No data available")
@@ -493,12 +529,26 @@ class GameView {
                 .remove()   
             this.battingsvg.selectAll("path")
                 .remove()
+            this.bowlingsvg.selectAll("line")
+                .remove()
+            this.bowlingsvg.selectAll("text")
+                .remove()
+            this.bowlingsvg.select(".economy-axis")
+                .remove()
+            this.bowlingsvg.select(".runs-axis")
+                .remove()
+            this.bowlingsvg.select(".wickets-axis")
+                .remove()
+            this.bowlingsvg.select(".overs-axis")
+                .remove()
         }
     };
     reset(){
         this.overviewsvg.selectAll("text")
             .remove()
         this.overviewsvg.selectAll("image")
+            .remove()
+        this.overviewsvg.selectAll("circle")
             .remove()
         this.battingsvg.selectAll("circle")
             .remove()
