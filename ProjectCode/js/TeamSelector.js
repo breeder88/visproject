@@ -29,6 +29,21 @@ class TeamSelector{
         this.buttonY=10
         this.buttonLabelX=90
         this.buttonLabelY=15
+        this.codes = {
+            "Rajasthan Royals":"RR",
+            "Deccan Chargers":"DC",
+            "Sunrisers Hyderabad":"SRH",
+            "Kings XI Punjab":"KXIP",
+            "Delhi Daredevils":"DD",
+            "Mumbai Indians":"MI",
+            "Rising Pune Supergiants":"RPS",
+            "Pune Warriors India":"PWI",
+            "Kochi Tuskers Kerala":"KTK",
+            "Gujarat Lions":"GL",
+            "Royal Challengers Bangalore":"RCB",
+            "Chennai Super Kings":"CSK",
+            "KKR":"Kolkata Knight Riders",
+        };
         d3.select('#teamSelector')
             .append('div')
             .attr("class", "tooltip")
@@ -42,6 +57,7 @@ class TeamSelector{
 		yearGames.forEach(d=>{ //find all teams that played
             teamsPlaying.push(d.winner)
         })
+        console.log("teamsPlaying: ",teamsPlaying);
         function arrCondense(a) { //removes duplicate items
             var seen = {};
             return a.filter(function(item) {
@@ -80,6 +96,7 @@ class TeamSelector{
                 tooltip.style("opacity",0);
             })
             .on("click", d=>{
+                console.log("d: ",d);
                 this.selectedTeam(year,d);
                 tooltip.style("opacity",0);
                 this.gameTimeline.teamUpdate(year,d);
@@ -93,6 +110,7 @@ class TeamSelector{
                 .style("text-anchor", "middle");
     };
     selectedTeam(year,teamName){
+        console.log("clicked ",teamName," on team selector");
         this.svg.selectAll("image").remove()
         let resetButton=this.svg.append("circle")
         resetButton.attr("r",this.buttonRadius)

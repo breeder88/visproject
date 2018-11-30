@@ -54,6 +54,8 @@ class Map {
         this.activeYear = 2008;
         //teamID:stateID dictionary
         this.codes = {"RR":"RJ","DD":"DL","SRH":"AP","DC":"AP","MI":"MH","RPS":"MH","PWI":"MH","CSK":"TN","KTK":"KL","KXIP":"PB","KKR":"WB","RCB":"KA","GL":"GJ"};
+        //stateID:teamID dictionary
+        this.statedict = {"RJ":["RR"],"AP":["DC","SRH"],"MH":["PWI","RPS","MI"],"GJ":["GL"],"TN":["CSK"],"DL":["DD"],"PB":["KXIP"],"KA":["RCB"],"WB":["KKR"],"KL":["KTK"]};
         this.names = {
             "KKR":"Kolkatta Knight Riders",
             "SRH":"Sun Risers Hyderabad",
@@ -75,6 +77,7 @@ class Map {
     update(year,rankings) {
 		//let fill = {"AP":"#ef792f","TN":"#f1f433","KA":"#d3381d","MH":"#1c62d2","PB":"#d11b4f","DL":"#b70034","RJ":"#0903b7","WB":"#110101","KL":"#FFF"};
         //data of playing teams
+        this.activeYear = year;
         var playing = rankings.filter(d => {
             if(d.Year === year)
                 return d.Team;
@@ -102,6 +105,7 @@ class Map {
                 tooltipDict[teamdict[key]] = tooltipDict[teamdict[key]].concat(this.names[key]);
             }
         }
+
         let tooltip = d3.select(".tooltip");
 		let paths = this.g.selectAll("path")
                             .data(this.statePaths);
@@ -129,11 +133,15 @@ class Map {
                 tooltip.style("opacity",0);
             })
         var pathElements =  document.getElementsByClassName("playing");
+        let that = this;
         for(var p of pathElements){
             p.addEventListener("click",event => {
                 for(var e of pathElements){
                     e.setAttribute("class","playing");
                 }
+                var stateID = event.target.getAttribute("id");
+                that.updateHighlight(stateID);
+
                 event.target.setAttribute("class","playing map-selected");
             });
         }
@@ -156,7 +164,36 @@ class Map {
         }*/
 
     };
-    updateHighlight(year,stateId){
+    updateHighlight(stateId){
+        console.log(stateId);
+        var teams = this.statedict[stateId];
+        var tableRows = document.getElementsByTagName("tr");
+        for(let row of tableRows){
+            var cls = row.getAttribute("class");
+            if(cls !== null){
+                console.log("cls: ",cls);
+                if(cls.indexOf("winner")!==-1)
+                    row.setAttribute("class","winner");
+                else
+                    row.setAttribute("class","");
+                console.log("cls: ",cls);
+            }
+        }
+        for(let team of teams){
+            console.log(document.getElementById(team));
+            var element = document.getElementById(team);
+            if(element !== null){
+                var cls = element.getAttribute("class");
+                if(cls !== null){
+                    if(cls.indexOf("winner") !== -1)
+                        element.setAttribute("class","winner clicked");
+                    else
+                        element.setAttribute("class","clicked")
+                }
+            }
+        }
+        this.selectTeam()
+        console.log("teams representing clicked state: ",teams);
 
     }
     tooltipRender(data){

@@ -9,7 +9,8 @@ d3.json('Datasets/PlayerData.json').then( playerData => {
         d3.csv("Datasets/rankings.csv").then(rankings =>{
             indiaMap = new Map();
             indiaMap.update("2008",rankings);
-            table = new Table();
+            console.log("teamSelector object passed to table: ",teamSelector);
+            table = new Table(gameView,gameTimeline,teamSelector);
             table.createTable(rankings);
             table.updateTable("2008",rankings);
 

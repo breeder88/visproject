@@ -1,10 +1,10 @@
 class Table{
 	//season-wise rankings view
-	constructor(){
+	constructor(gameView,gameTimeline,teamSelector){
 		//this.rankings = rankings;
 		this.names = {
-			"KKR":"Kolkatta Knight Riders",
-			"SRH":"Sun Risers Hyderabad",
+			"KKR":"Kolkata Knight Riders",
+			"SRH":"Sunrisers Hyderabad",
 			"DC":"Deccan Chargers",
 			"CSK":"Chennai Super Kings",
 			"DD":"Delhi Daredevils",
@@ -42,6 +42,12 @@ class Table{
         this.aggregateColorScale = null;
         this.gameScale = null;
         this.activeYear = 2008;
+        this.codes = {"RR":"RJ","DD":"DL","SRH":"AP","DC":"AP","MI":"MH","RPS":"MH","PWI":"MH","CSK":"TN","KTK":"KL","KXIP":"PB","KKR":"WB","RCB":"KA","GL":"GJ"};
+        this.gameView = gameView;
+        this.teamSelector = teamSelector;
+        this.gameTimeline = gameTimeline;
+        this.clicked = false;
+
 
 
 	}
@@ -110,6 +116,7 @@ class Table{
 		tr.exit().remove();
         let trEnter = tr.enter().append("tr");
         tr = trEnter.merge(tr);
+        let that = this;
         tr.attr("id", d => d.Team)
           .on("click", d => {
           	console.log("clicked ",d.Team," on the table!");
@@ -127,10 +134,17 @@ class Table{
 
             }
           	d3.selectAll("tr").filter(tr => tr===d).classed("clicked",true);
+            that.updateHighlight(d3.selectAll("tr").filter(tr => tr===d).attr("id"));
+            that.selectTeam(that.activeYear,that.names[d.Team]);
+            that.teamSelector.selectedTeam(that.activeYear,that.names[d.Team]);
+
+
           })
           .attr("class",d =>{
             if(d.Team === this.winners[this.activeYear])
                 return "winner";
+            else
+                return "player";
           });
         var td = tr.selectAll("td")
         	       .data(d => {
@@ -173,7 +187,28 @@ class Table{
                 .style("font-weight","bold");
 
 	}
-    updateHighlight(year,stateId){
+    updateHighlight(teamId){
+        console.log("clicked ",teamId, " on table.");
+        var stateId = this.codes[teamId];
+        var states = document.getElementsByClassName("playing");
+        for(let s of states){
+            console.log("s: ",s);
+            s.setAttribute("class","playing");
+        }
+        var state = document.getElementById(stateId);
+        state.setAttribute("class","playing map-selected");
+
         
+    }
+    selectTeam(activeYear,team){
+        if(this.clicked){
+            this.gameTimeline.reset();
+            this.teamSelector.reset(this.activeYear);
+            this.gameView.reset();
+        }
+        this.clicked = true;
+        this.teamSelector.selectedTeam(activeYear,team);
+        this.gameTimeline.teamUpdate(this.activeYear,team);
+        this.gameView.reset();
     }
 }
