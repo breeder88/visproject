@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+    }
+    body {
+    /* The image used */
+    background-image: url("/ProjectCode/images/headerimage.JPG");
+
+    /* Full height */
+    height: 50%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+    /* Remove the navbar's default margin-bottom and rounded borders */ 
+    .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+    }
+    
+    /* Add a gray background color and some padding to the footer */
+    footer {
+      background-color: #f2f2f2;
+      padding: 25px;
+    }
+    .jumbotron{
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body>
+
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="nav navbar-nav navbar-right">
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#about">Demo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#projects">Process Book</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="#signup">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+<div class="jumbotron">
+  <div class="container text-center">
+    <h1 class="j-content">IPL Data Visualization</h1>      
+    <p class="j-content">Visualization of IPL Data from 2008 to 2016.</p>
+  </div>
+</div>
+<div class="container text-center">
+    <div height="500px">
+      <div class="text-center" style="padding-top:230px;">
+        <a href="ProjectCode/IPLViz.html" class="btn btn-primary btn-lg">Go to Viz</a>
+      </div>
+    </div>
+</div>
+
+</body>
+</html>
