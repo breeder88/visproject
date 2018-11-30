@@ -10,7 +10,7 @@ class SeasonTimeline {
 
         //fetch the svg bounds
         this.svgWidth = timeline.node().getBoundingClientRect().width;
-        this.svgHeight = 180;
+        this.svgHeight = 200;
 
         //add the svg to the div
         this.svg = timeline.append("svg")
@@ -26,6 +26,8 @@ class SeasonTimeline {
         d3.csv("Datasets/rankings.csv").then(rankings => {
             this.rankings = rankings;
         });
+        this.initializedTeam = 0;
+        this.initializedYear = 0;
        
     };
 
@@ -47,8 +49,8 @@ class SeasonTimeline {
             .attr("width",150)
             .attr("height",150)
             .attr("id",d => d.Year)
-            .attr("x",(d,i)=>i*this.svgWidth/9+50)
-            .attr("y","10")
+            .attr("x",(d,i)=>i*this.svgWidth/9+40)
+            .attr("y","20")
             .on("mouseover", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
             })
@@ -56,7 +58,15 @@ class SeasonTimeline {
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",false);
             })
             .on("click", d=>{
-                this.teamSelector.reset(d.year);
+                this.svg.selectAll("tspan").classed("highlightedText",false)
+                let textData = this.svg.selectAll("tspan").nodes()
+                textData.forEach(textElement => {
+                    let textElementData = textElement.__data__
+                    if(textElementData.Year === d.Year && textElementData.Team === d.Team){
+                        d3.select(textElement).classed("highlightedText",true)
+                    }
+                })
+                this.teamSelector.reset(d.Year);
                 this.teamSelector.update(d.Year);
                 this.gameTimeline.reset();
                 this.gameView.reset();
@@ -70,15 +80,34 @@ class SeasonTimeline {
             
         timelineText.append("tspan")
             .text(d=>d.Team)
-            .attr("y","170")
-            .attr("x",(d,i)=>i*this.svgWidth/9+125)
-            .style("text-anchor", "middle");
+            .attr("y","185")
+            .attr("x",(d,i)=>i*this.svgWidth/9+115)
+            .style("text-anchor", "middle")
+            .classed("highlightedText",d=>{
+                if(this.initializedTeam === 0){
+                    if(2008 == d.Year && "Rajasthan Royals" === d.Team){
+                        this.initializedTeam = 1
+                        return true
+                    }
+                }
+            });
 
         timelineText.append("tspan")
             .text(d=>d.Year)
-            .attr("y","11")
-            .attr("x",(d,i)=>i*this.svgWidth/9+125)
-            .style("text-anchor", "middle");
+            .attr("y","15")
+            .attr("x",(d,i)=>i*this.svgWidth/9+115)
+            .style("text-anchor", "middle")
+            .classed("highlightedText",d=>{
+                if(this.initializedYear === 0){
+                    console.log(d.Year)
+                    console.log(d.Team)
+                    if(2008 == d.Year && "Rajasthan Royals" === d.Team){
+                        console.log("x")
+                        this.initializedYear = 1
+                        return true
+                    }
+                }
+            });
     };
     updateHighlight(){
 
