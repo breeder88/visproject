@@ -9,13 +9,17 @@ body {
 main {
     width: 100%;
 }
-h1 {
+.row{
+    padding-bottom: 50px;
+}
+h1,h2 {
     font-family: "Arvo";
     font-size:35px;
     color: #464646;
     margin: 0px;
-    padding: 0px;
+    /*padding: 0px;*/
     margin-left: 20px;
+    padding-bottom: 25px;
 }
 .info{
     margin-left: 20px;
@@ -317,6 +321,7 @@ th {
     padding-right: 6px;
     min-width: 125px;
     font-size: 24px;
+    border-right: none;
 }
 
 thead td , th{
@@ -344,9 +349,10 @@ tbody tr:hover {
 /*thead > tr > td{
     font-weight: bold;
 }*/
-th, td{
+td{
     border-collapse: collapse;
     border-right: 1px solid grey;
+    border-bottom: none;
 }
 tr>td: nth-child(6){
     border-right: none;
