@@ -13,7 +13,7 @@ class Table{
 			"RR":"Rajasthan Royals",
 			"RPS":"Rising Pune Supergiants",
 			"KTK":"Kochi Tuskers Kerala",
-			"PWI":"Pune Warriors India",
+			"PWI":"Pune Warriors",
 			"GL":"Gujarat Lions",
 			"RCB":"Royal Challengers Bangalore"
 		};
@@ -217,6 +217,7 @@ class Table{
         }
         this.clicked = true;
         this.teamSelector.selectedTeam(activeYear,team);
+        console.log(team)
         this.gameTimeline.teamUpdate(this.activeYear,team);
         this.gameView.reset();
     }

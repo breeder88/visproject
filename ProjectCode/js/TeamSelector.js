@@ -58,7 +58,6 @@ class TeamSelector{
 		yearGames.forEach(d=>{ //find all teams that played
             teamsPlaying.push(d.winner)
         })
-        console.log("teamsPlaying: ",teamsPlaying);
         function arrCondense(a) { //removes duplicate items
             var seen = {};
             return a.filter(function(item) {
@@ -103,6 +102,7 @@ class TeamSelector{
             .on("click", d=>{
                 this.selectedTeam(year,d);
                 tooltip.style("opacity",0);
+                console.log(d)
                 this.gameTimeline.teamUpdate(year,d);
                 this.gameView.reset();
             });    
