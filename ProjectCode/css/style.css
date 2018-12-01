@@ -4,7 +4,7 @@ html {
 }
 body {
     font-family: Lato;
-    padding:40px;
+    /*padding:40px;*/
 }
 main {
     width: 100%;
@@ -376,4 +376,7 @@ tr.winner:after {
 .highlightedText{
     font-weight: bold;
     font-size: 18px;
+}
+#team-name{
+    width: 500px;
 }

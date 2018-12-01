@@ -1,106 +1,61 @@
 winner,city,count
-Chennai Super Kings,Abu Dhabi,1
 Chennai Super Kings,Bangalore,4
-Chennai Super Kings,Centurion,2
 Chennai Super Kings,Chandigarh,3
 Chennai Super Kings,Chennai,33
 Chennai Super Kings,Delhi,5
 Chennai Super Kings,Dharamsala,1
-Chennai Super Kings,Durban,1
-Chennai Super Kings,East London,1
 Chennai Super Kings,Hyderabad,2
 Chennai Super Kings,Jaipur,2
-Chennai Super Kings,Johannesburg,1
-Chennai Super Kings,Kimberley,1
 Chennai Super Kings,Kolkata,4
 Chennai Super Kings,Mumbai,8
-Chennai Super Kings,Port Elizabeth,2
 Chennai Super Kings,Pune,1
 Chennai Super Kings,Ranchi,3
-Chennai Super Kings,Sharjah,1
 Chennai Super Kings,Visakhapatnam,1
-Deccan Chargers,Bangalore,1
-Deccan Chargers,Cape Town,2
-Deccan Chargers,Centurion,2
-Deccan Chargers,Chennai,2
-Deccan Chargers,Cuttack,3
-Deccan Chargers,Delhi,2
-Deccan Chargers,Dharamsala,2
-Deccan Chargers,Durban,2
-Deccan Chargers,Hyderabad,3
-Deccan Chargers,Johannesburg,2
-Deccan Chargers,Kimberley,1
-Deccan Chargers,Kochi,1
-Deccan Chargers,Mumbai,3
-Deccan Chargers,Nagpur,2
-Deccan Chargers,Pune,1
+Sunrisers Hyderabad,Bangalore,1
+Sunrisers Hyderabad,Chennai,2
+Sunrisers Hyderabad,Cuttack,3
+Sunrisers Hyderabad,Delhi,2
+Sunrisers Hyderabad,Dharamsala,2
+Sunrisers Hyderabad,Hyderabad,3
+Sunrisers Hyderabad,Kochi,1
+Sunrisers Hyderabad,Mumbai,3
+Sunrisers Hyderabad,Nagpur,2
+Sunrisers Hyderabad,Pune,1
 Delhi Daredevils,Ahmedabad,1
 Delhi Daredevils,Bangalore,3
-Delhi Daredevils,Bloemfontein,1
-Delhi Daredevils,Cape Town,1
-Delhi Daredevils,Centurion,2
 Delhi Daredevils,Chandigarh,1
 Delhi Daredevils,Chennai,2
 Delhi Daredevils,Delhi,23
 Delhi Daredevils,Dharamsala,1
-Delhi Daredevils,Durban,3
-Delhi Daredevils,East London,1
 Delhi Daredevils,Hyderabad,4
 Delhi Daredevils,Jaipur,1
-Delhi Daredevils,Johannesburg,1
 Delhi Daredevils,Kanpur,1
 Delhi Daredevils,Kochi,1
 Delhi Daredevils,Kolkata,1
 Delhi Daredevils,Mumbai,2
-Delhi Daredevils,Port Elizabeth,1
 Delhi Daredevils,Pune,3
 Delhi Daredevils,Raipur,4
 Delhi Daredevils,Rajkot,1
-Delhi Daredevils,Sharjah,1
 Delhi Daredevils,Visakhapatnam,1
-Gujarat Lions,Bangalore,1
-Gujarat Lions,Chandigarh,2
-Gujarat Lions,Delhi,1
-Gujarat Lions,Kanpur,2
-Gujarat Lions,Kolkata,2
-Gujarat Lions,Mumbai,1
-Gujarat Lions,Pune,1
-Gujarat Lions,Rajkot,3
-Kings XI Punjab,Abu Dhabi,2
 Kings XI Punjab,Ahmedabad,1
 Kings XI Punjab,Bangalore,5
-Kings XI Punjab,Bloemfontein,1
-Kings XI Punjab,Cape Town,1
 Kings XI Punjab,Chandigarh,22
 Kings XI Punjab,Chennai,2
 Kings XI Punjab,Cuttack,1
 Kings XI Punjab,Delhi,4
 Kings XI Punjab,Dharamsala,5
-Kings XI Punjab,Durban,2
 Kings XI Punjab,Hyderabad,4
 Kings XI Punjab,Indore,3
-Kings XI Punjab,Johannesburg,1
-Kings XI Punjab,Kimberley,1
 Kings XI Punjab,Kolkata,2
 Kings XI Punjab,Mumbai,5
-Kings XI Punjab,Port Elizabeth,1
 Kings XI Punjab,Pune,1
 Kings XI Punjab,Rajkot,2
-Kings XI Punjab,Sharjah,2
 Kings XI Punjab,Visakhapatnam,1
-Kochi Tuskers Kerala,Delhi,1
-Kochi Tuskers Kerala,Indore,1
-Kochi Tuskers Kerala,Kochi,2
-Kochi Tuskers Kerala,Kolkata,1
-Kochi Tuskers Kerala,Mumbai,1
-Kolkata Knight Riders,Abu Dhabi,1
 Kolkata Knight Riders,Bangalore,6
-Kolkata Knight Riders,Centurion,1
 Kolkata Knight Riders,Chandigarh,3
 Kolkata Knight Riders,Chennai,2
 Kolkata Knight Riders,Cuttack,3
 Kolkata Knight Riders,Delhi,5
-Kolkata Knight Riders,Durban,2
 Kolkata Knight Riders,Hyderabad,4
 Kolkata Knight Riders,Jaipur,1
 Kolkata Knight Riders,Kolkata,37
@@ -108,68 +63,38 @@ Kolkata Knight Riders,Mumbai,3
 Kolkata Knight Riders,Pune,6
 Kolkata Knight Riders,Rajkot,1
 Kolkata Knight Riders,Ranchi,1
-Kolkata Knight Riders,Sharjah,1
 Mumbai Indians,Ahmedabad,1
 Mumbai Indians,Bangalore,8
-Mumbai Indians,Cape Town,1
-Mumbai Indians,Centurion,1
 Mumbai Indians,Chandigarh,4
 Mumbai Indians,Chennai,3
 Mumbai Indians,Delhi,3
-Mumbai Indians,East London,1
 Mumbai Indians,Hyderabad,5
 Mumbai Indians,Indore,1
 Mumbai Indians,Jaipur,2
 Mumbai Indians,Kolkata,9
 Mumbai Indians,Mumbai,45
-Mumbai Indians,Port Elizabeth,2
 Mumbai Indians,Pune,3
 Mumbai Indians,Rajkot,1
 Mumbai Indians,Visakhapatnam,2
-Pune Warriors,Chandigarh,1
-Pune Warriors,Chennai,1
-Pune Warriors,Delhi,1
-Pune Warriors,Hyderabad,1
-Pune Warriors,Mumbai,3
-Pune Warriors,Pune,4
-Pune Warriors,Ranchi,1
-Rajasthan Royals,Abu Dhabi,3
 Rajasthan Royals,Ahmedabad,7
 Rajasthan Royals,Bangalore,3
-Rajasthan Royals,Cape Town,1
-Rajasthan Royals,Centurion,2
 Rajasthan Royals,Chandigarh,3
 Rajasthan Royals,Chennai,1
 Rajasthan Royals,Delhi,4
-Rajasthan Royals,Durban,2
 Rajasthan Royals,Hyderabad,2
 Rajasthan Royals,Jaipur,24
 Rajasthan Royals,Kolkata,1
 Rajasthan Royals,Mumbai,5
 Rajasthan Royals,Nagpur,1
-Rajasthan Royals,Port Elizabeth,1
 Rajasthan Royals,Pune,2
 Rajasthan Royals,Visakhapatnam,1
-Rising Pune Supergiant,Bangalore,1
-Rising Pune Supergiant,Hyderabad,1
-Rising Pune Supergiant,Kolkata,1
-Rising Pune Supergiant,Mumbai,2
-Rising Pune Supergiant,Pune,5
-Rising Pune Supergiants,Delhi,1
-Rising Pune Supergiants,Hyderabad,1
-Rising Pune Supergiants,Mumbai,1
-Rising Pune Supergiants,Visakhapatnam,2
 Royal Challengers Bangalore,Ahmedabad,1
 Royal Challengers Bangalore,Bangalore,30
-Royal Challengers Bangalore,Cape Town,1
-Royal Challengers Bangalore,Centurion,2
 Royal Challengers Bangalore,Chandigarh,3
 Royal Challengers Bangalore,Chennai,2
 Royal Challengers Bangalore,Delhi,5
-Royal Challengers Bangalore,Durban,3
 Royal Challengers Bangalore,Hyderabad,2
 Royal Challengers Bangalore,Jaipur,3
-Royal Challengers Bangalore,Johannesburg,3
 Royal Challengers Bangalore,Kochi,1
 Royal Challengers Bangalore,Kolkata,3
 Royal Challengers Bangalore,Mumbai,5
@@ -177,7 +102,6 @@ Royal Challengers Bangalore,Pune,4
 Royal Challengers Bangalore,Raipur,1
 Royal Challengers Bangalore,Rajkot,1
 Royal Challengers Bangalore,Ranchi,1
-Royal Challengers Bangalore,Sharjah,1
 Sunrisers Hyderabad,Ahmedabad,1
 Sunrisers Hyderabad,Bangalore,2
 Sunrisers Hyderabad,Chandigarh,4
