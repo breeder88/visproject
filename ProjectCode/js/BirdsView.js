@@ -32,6 +32,13 @@ class BirdsView{
         		.attr("transform","translate(0,50)")
 			   .attr("width",this.svgWidth)
 			   .attr("height",this.svgHeight);
+
+		d3.select('#won-lost')
+			   .append('div')
+			   .attr("class", "tooltip")
+			   .style("opacity", 0)
+			   .style('z-index', 9999)
+			   .attr("id","supportTooltip");
 	}
 	deriveData(){
 		console.log("hometownData: ",this.hometownData);
@@ -78,7 +85,7 @@ class BirdsView{
 
 	}
 	createComparisionChart(){
-		let tooltip = d3.select(".tooltip");
+		let tooltip = d3.select("#supportTooltip");
 		var data = this.deriveData();
 		console.log("data: ",data);
 		var xScale = d3.scalePoint()
