@@ -96,7 +96,6 @@ class TeamSelector{
                 tooltip.style("opacity",0);
             })
             .on("click", d=>{
-                console.log("d: ",d);
                 this.selectedTeam(year,d);
                 tooltip.style("opacity",0);
                 this.gameTimeline.teamUpdate(year,d);
@@ -110,7 +109,6 @@ class TeamSelector{
                 .style("text-anchor", "middle");
     };
     selectedTeam(year,teamName){
-        console.log("clicked ",teamName," on team selector");
         this.svg.selectAll("image").remove()
         let resetButton=this.svg.append("circle")
         resetButton.attr("r",this.buttonRadius)

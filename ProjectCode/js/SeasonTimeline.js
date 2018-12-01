@@ -99,10 +99,7 @@ class SeasonTimeline {
             .style("text-anchor", "middle")
             .classed("highlightedText",d=>{
                 if(this.initializedYear === 0){
-                    console.log(d.Year)
-                    console.log(d.Team)
                     if(2008 == d.Year && "Rajasthan Royals" === d.Team){
-                        console.log("x")
                         this.initializedYear = 1
                         return true
                     }
