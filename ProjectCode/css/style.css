@@ -4,12 +4,8 @@ html {
 }
 body {
     font-family: Lato;
-<<<<<<< HEAD
     padding-left:40px;
     padding-top: 0;
-=======
-    padding:40px;
->>>>>>> 7443583827c7d2780e39c1619c3788a3504efbd7
 }
 main {
     width: 100%;

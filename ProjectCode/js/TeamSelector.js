@@ -44,7 +44,7 @@ class TeamSelector{
             "Chennai Super Kings":"CSK",
             "KKR":"Kolkata Knight Riders",
         };
-        d3.select('#wonLost')
+        d3.select('#teamSelector')
             .append('div')
             .attr("class", "tooltip")
             .style("opacity", 0)
