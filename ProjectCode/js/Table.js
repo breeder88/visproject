@@ -60,7 +60,6 @@ class Table{
         let asc = true;
         let headers = d3.select("thead").selectAll("th")
                         .on("click",function(d,i){  
-                        console.log("clicked: ",table.tableHeaders[i]);                           
                             if(asc){
                                 //console.log("asc: ",asc);
                                 	rankings.sort(function(a,b){
@@ -217,7 +216,6 @@ class Table{
         }
         this.clicked = true;
         this.teamSelector.selectedTeam(activeYear,team);
-        console.log(team)
         this.gameTimeline.teamUpdate(this.activeYear,team);
         this.gameView.reset();
     }

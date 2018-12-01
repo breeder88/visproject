@@ -102,7 +102,6 @@ class TeamSelector{
             .on("click", d=>{
                 this.selectedTeam(year,d);
                 tooltip.style("opacity",0);
-                console.log(d)
                 this.gameTimeline.teamUpdate(year,d);
                 this.gameView.reset();
             });    
