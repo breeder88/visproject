@@ -7,18 +7,68 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <style>
+      .navbar {
+      margin-bottom: 0;
+      border-radius: 0;
+
+    }
+    p{
+    	font-size: 20px
+    }
+    html {
+      background-color: rgba(255,255,255,0.7);
+      background-image: url("images/about.JPG");
+          /* Full height */
+      height: 100%; 
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    }
+
+body {
+  background:rgba(255,255,255,0.8); /* applies a 50% transparent white background */
+  height: 100%;
+  padding: 0;
+}
+  </style>
 </head>
 <body>
+	<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="nav navbar-nav navbar-right">
+          	<li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="../index.html">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="demo.html">Demo</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link js-scroll-trigger" href="../ProcessBook.pdf">Process Book</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 
 <div class="container">
-	<p>
-
-The IPL (Indian Premier League) is the world’s largest cricket league in terms of attendance, and is the sixth most attended sports league in the world, with a value of $6.3 billion.  In IPL, 11 Indian teams compete against each other in a group stage, earning 2 points per win.  The top 4 teams compete for final bracket.  While many visualizations exist for sports such as basketball (march madness especially) and football.  Most of the statistics of IPL cricket games are simply located in tables with queries.  While this is useful for finding specific stats, these formats are not easily digestible, nor do they offer the ability to directly compare teams or players.</p>
-
-<p>The present project aims to analyse IPL match data from the beginning of the IPL (2008) to 2016.  Both teams and key player stats will be visualized over the seasons, offering team comparisons and visualizations for performance over multiple seasons.
+	<h1>Indian Premier League</h1>
+	<br>
+	<p>The IPL (Indian Premier League) is the world’s largest cricket league in terms of attendance, and is the sixth most attended sports league in the world, with a value of $6.3 billion.  In IPL, 11 Indian teams compete against each other in a group stage, earning 2 points per win.  The top 4 teams compete for final bracket.  While many visualizations exist for sports such as basketball (march madness especially) and football.  Most of the statistics of IPL cricket games are simply located in tables with queries.  While this is useful for finding specific stats, these formats are not easily digestible, nor do they offer the ability to directly compare teams or players.</p><br>
+	<p>The present project aims to analyse IPL match data from the beginning of the IPL (2008) to 2016.  Both teams and key player stats will be visualized over the seasons, offering team comparisons and visualizations for performance over multiple seasons.
 	</p>
 	
 </div>
-
+<div class="container text-center">
+    <div height="500px">
+      <div class="text-center" style="padding-top:150px;">
+        <a href="IPLViz.html" class="btn btn-primary btn-lg">Launch Visualization</a>
+      </div>
+    </div>
+</div>
 </body>
 </html>
