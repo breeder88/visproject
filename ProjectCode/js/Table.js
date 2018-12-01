@@ -13,7 +13,7 @@ class Table{
 			"RR":"Rajasthan Royals",
 			"RPS":"Rising Pune Supergiants",
 			"KTK":"Kochi Tuskers Kerala",
-			"PWI":"Pune Warriors India",
+			"PWI":"Pune Warriors",
 			"GL":"Gujarat Lions",
 			"RCB":"Royal Challengers Bangalore"
 		};
@@ -60,7 +60,6 @@ class Table{
         let asc = true;
         let headers = d3.select("thead").selectAll("th")
                         .on("click",function(d,i){  
-                        console.log("clicked: ",table.tableHeaders[i]);                           
                             if(asc){
                                 //console.log("asc: ",asc);
                                 	rankings.sort(function(a,b){

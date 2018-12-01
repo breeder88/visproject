@@ -44,7 +44,7 @@ class TeamSelector{
             "Chennai Super Kings":"CSK",
             "KKR":"Kolkata Knight Riders",
         };
-        d3.select('#teamSelector')
+        d3.select('#wonLost')
             .append('div')
             .attr("class", "tooltip")
             .style("opacity", 0)
@@ -58,7 +58,6 @@ class TeamSelector{
 		yearGames.forEach(d=>{ //find all teams that played
             teamsPlaying.push(d.winner)
         })
-        console.log("teamsPlaying: ",teamsPlaying);
         function arrCondense(a) { //removes duplicate items
             var seen = {};
             return a.filter(function(item) {
