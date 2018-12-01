@@ -35,8 +35,15 @@ class BirdsView{
 
 		d3.select('#won-lost')
 			   .append('div')
-			   .attr("class", "tooltip")
+			   .style("display","flex")
+			   .style("position","absolute")
+			   .style("text-align","center")
+			   .style("padding","2px")
+			   .style("background","lightblue")
+			   .style("stroke", "black")
+			   .style("border-radius","4px")
 			   .style("opacity", 0)
+			   .style("pointer-events","none")
 			   .style('z-index', 9999)
 			   .attr("id","supportTooltip");
 	}
@@ -110,8 +117,8 @@ class BirdsView{
 	         				.attr("fill","#d12525")
 	         				.on("mouseover",d => {
                    				 tooltip.html(this.tooltipRender(d))
-                           				.style("left", d3.event.pageX + "px")
-                           				.style("top", d3.event.pageY + "px")
+                           				.style("left", d3.event.pageX-800 + "px")
+                           				.style("top", d3.event.pageY-200 + "px")
                            				.style("opacity", 1);
 	         				})
 	         				.on("mouseout",d => {
@@ -131,8 +138,8 @@ class BirdsView{
 	         				.attr("fill","#6ab5fc")
 	         				.on("mouseover",d => {
                    				 tooltip.html(this.tooltipRender(d))
-                           				.style("left", d3.event.pageX + "px")
-                           				.style("top", d3.event.pageY + "px")
+                           				.style("left", d3.event.pageX-800 + "px")
+                           				.style("top", d3.event.pageY-200 + "px")
                            				.style("opacity", 1);
 	         				})
 	         				.on("mouseout",d => {
@@ -155,8 +162,8 @@ class BirdsView{
 	}
 	    tooltipRender(data){
 	    	console.log(data);
-	    	return "<h3>"+data["team"]+"</h3>"+"<p> Won: "+data["won"]
-	    	+"<br />Lost: "+data["lost"]+"</p>";
+	    	return "<h3>"+data["team"]+""+"<p> Won: "+data["won"]
+	    	+"</p><p>Lost: "+data["lost"]+"</p></h3>";
 
     }
 }
