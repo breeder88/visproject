@@ -48,7 +48,8 @@ class TeamSelector{
             .append('div')
             .attr("class", "tooltip")
             .style("opacity", 0)
-            .style('z-index', 9999);
+            .style('z-index', 9999)
+            .attr("id","teamSelectorTooltip");
 	};
 	update(year){
         this.svg.selectAll("text").remove()
@@ -78,7 +79,7 @@ class TeamSelector{
 			.remove();
 		let teamIconsEnter = teamIcons.enter().append("svg:image")
         teamIcons = teamIconsEnter.merge(teamIcons)
-        let tooltip = d3.select(".tooltip");
+        let tooltip = d3.select("#teamSelectorTooltip");
 		teamIcons.attr("xlink:href", d=>`TeamLogos/${d}.png`)
             .attr("width",this.teamSize)
             .attr("height",this.teamSize)
@@ -87,8 +88,12 @@ class TeamSelector{
             .on("mouseover", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
                 tooltip.html(this.tooltipRender(d) + "<br/>")
-                    .style("left", d3.event.pageX + "px")
-                    .style("top", d3.event.pageY + "px")
+                    .style("left", d=>{
+                        return d3.event.target.x.baseVal.value-75+"px"
+                    })//d3.event.pageX-75 + "px")
+                    .style("top", d=>{
+                        return d3.event.target.y.baseVal.value+100+"px"
+                    })//d3.event.pageY + "px")
                     .style("opacity", 1);
             })
 			.on("mouseout", d=>{

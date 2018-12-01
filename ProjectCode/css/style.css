@@ -218,7 +218,7 @@ div.tooltip {
     padding: 2px;
     background: lightblue;
     stroke: black;
-    border-radius: 8px;
+    border-radius: 4px;
     pointer-events: none;
 }
 
@@ -335,5 +335,17 @@ tr.winner:after {
 }
 
 .text{
-    font-size: 18px
+    font-size: 18px;
+}
+
+.mapTooltip{
+    position: absolute;
+    display: flex;	
+    text-align: center;
+    padding: 2px;
+    background: lightblue;
+    stroke: black;
+    border-radius: 4px;
+    pointer-events: none;
+    font-size: 15;
 }

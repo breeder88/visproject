@@ -37,7 +37,9 @@ class GameView {
         d3.select('#gameBattingPlot')
             .append('div')
             .attr("class", "tooltip")
-            .style("opacity", 0);
+            .style("opacity", 0)
+            .style('z-index', 9999)
+            .attr("id","battingTooltip");
             
     };
 
@@ -251,6 +253,7 @@ class GameView {
             runsPlot.exit()
                 .remove();        
             let runsPlotEnter = runsPlot.enter().append("circle");
+            let tooltip = d3.select("#battingTooltip");
             runsPlot = runsPlot.merge(runsPlotEnter);
             runsPlot.attr("cx", d=>xRunScale(d.number))
                 .attr("cy", d=>yRunScale(d.runs))
@@ -260,13 +263,19 @@ class GameView {
                 })
                 .attr("class",d=>d.teamNumber)
                 .on("mouseover", d=>{
-                    d3.select(".tooltip").html(tooltipRender(d) + "<br/>")
-                        .style("left", d3.event.pageX-75 + "px")
-                        .style("top", d3.event.pageY + "px")
+                    tooltip.html(tooltipRender(d) + "<br/>")
+                        .style("left", d=>{
+                            console.log(d3.event.pageX)
+                            return d3.event.pageX-75+"px"
+                        })//d3.event.pageX-75 + "px")
+                        .style("top", d=>{
+                            console.log(d3.event.pageY-1000)
+                            return d3.event.pageY-2030+"px"
+                        })//d3.event.pageY + "px")
                         .style("opacity", 1);
                 })
                 .on("mouseout", d=>{
-                    d3.select(".tooltip").style("opacity",0);
+                    d3.select("#battingTooltip").style("opacity",0);
                 })
             let battingLineGenerator = d3.line()
                 .x((d) => xRunScale(d.number))
