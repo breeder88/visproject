@@ -11,7 +11,7 @@ class GameTimeLine{
 
         //fetch the svg bounds
         this.svgWidth = timeline.node().getBoundingClientRect().width;
-        this.svgHeight = 160;
+        this.svgHeight = 180;
 
         //add the svg to the div
         this.svg = timeline.append("svg")
@@ -24,14 +24,16 @@ class GameTimeLine{
 		this.winTickHeight=this.svgHeight/2-heightVal
 		this.loseTickHeight=this.svgHeight/2+heightVal
 		this.iconHeightWin=this.svgHeight/2-80
-		this.iconHeightLose=this.svgHeight/2
+		this.iconHeightLose=this.svgHeight/2 
 		this.teamSize=80
 		this.gameView = gameView
 		this.games = gameData;       
-		d3.select('#gameTimeline')
+		d3.select('#gamesTimeline')
             .append('div')
             .attr("class", "tooltip")
-            .style("opacity", 0);
+			.style("opacity", 0)
+			.style('z-index', 9999)
+			.attr("id","gameTimelineTooltip");
 	};
 	teamUpdate(year,selectedTeam){
 		let yearGames = this.games.filter(d=>d.season==year);
@@ -70,12 +72,12 @@ class GameTimeLine{
 		let timelineText = this.svg.append("text")
 		timelineText.append("tspan")
                 .text("Selected Team Won")
-                .attr("y","45")
+                .attr("y","35")
 				.attr("x","0")
 
 		timelineText.append("tspan")
                 .text("Selected Team Lost")
-                .attr("y","105")
+                .attr("y","120")
                 .attr("x","0")
 
 		teamTimeline.attr("y1",this.svgHeight/2)
@@ -103,7 +105,7 @@ class GameTimeLine{
 			.remove();
 		let teamIconsEnter = teamIcons.enter().append("svg:image")
 		teamIcons = teamIconsEnter.merge(teamIcons)
-		let tooltip = d3.select(".tooltip");
+		let tooltip = d3.select("#gameTimelineTooltip");
 		teamIcons.attr("xlink:href", d=>`TeamLogos/${d.opposingTeam}.png`)
             .attr("width",this.teamSize)
             .attr("height",this.teamSize)
@@ -124,9 +126,13 @@ class GameTimeLine{
 			})
 			.on("mouseover", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
-                tooltip.html(this.tooltipRender(d) + "<br/>")
-                    .style("left", d3.event.pageX-75 + "px")
-                    .style("top", d3.event.pageY + "px")
+				tooltip.html(this.tooltipRender(d) + "<br/>")
+                    .style("left", d=>{
+						return d3.event.target.x.baseVal.value-75+"px"
+					})//d3.event.pageX-75 + "px")
+                    .style("top", d=>{
+						return d3.event.target.y.baseVal.value+100+"px"
+					})//d3.event.pageY + "px")
                     .style("opacity", 1);
 			})
 			.on("mouseout", d=>{
@@ -135,12 +141,23 @@ class GameTimeLine{
 			})
 			.on("click", d=>{
 				this.gameView.update(d);
+				let currImage = this.svg.selectAll("image").filter(img => img==d);
+				this.svg.selectAll("rect").remove()
+				this.svg.append("rect")
+					.attr("x", currImage.attr("x"))
+					.attr("y", currImage.attr("y"))
+					.attr("width", this.teamSize+2)
+					.attr("height", this.teamSize+2)
+					.style("fill", "none")
+					.style("stroke", "black")
+					.style("stroke-width","5");
 			})
 	};
 	reset(){
 		this.svg.selectAll("line").remove();
 		this.svg.selectAll("image").remove();
 		this.svg.selectAll("text").remove();
+		this.svg.selectAll("rect").remove();
 	};
 	tooltipRender(data) {
 		let text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Tie Game</p><p>Winner: " + data.winner + "</p></h2>";

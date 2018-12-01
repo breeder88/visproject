@@ -5,7 +5,6 @@ class Map {
      * @param rankings Season rankings data
      */
     constructor (){
-        console.log("inside map constructor");
        // this.rankings = rankings;
 
         this.margin = {top: 10, right: 20, bottom: 20, left: 50};
@@ -13,6 +12,13 @@ class Map {
         //fetch the svg bounds
         this.svgWidth = 1620;
         this.svgHeight = 700;
+
+        d3.select('#india-map')
+            .append('div')
+            .attr("class", "mapTooltip")
+            .style("opacity", 0)
+            .style('z-index', 9999)
+            .attr("id","mapTooltip");
 
         //add the svg to the div
         this.svg = map.append("svg")
@@ -106,7 +112,7 @@ class Map {
             }
         }
 
-        let tooltip = d3.select(".tooltip");
+        let tooltip = d3.select("#mapTooltip");
 		let paths = this.g.selectAll("path")
                             .data(this.statePaths);
         let pathsEnter = paths.enter().append("path");
@@ -125,8 +131,8 @@ class Map {
              .on("mouseover", d=>{
                 if(Object.values(teamdict).indexOf(d.id)!==-1)
                     tooltip.html(this.tooltipRender({"state":d.n,"teams":tooltipDict[d.id]}) + "<br/>")
-                           .style("left", d3.event.pageX + "px")
-                           .style("top", d3.event.pageY + "px")
+                           .style("left", d3.event.pageX-50 + "px")
+                           .style("top", d3.event.pageY-550 + "px")
                            .style("opacity", 1);
             })
             .on("mouseout", d=>{
@@ -165,22 +171,20 @@ class Map {
 
     };
     updateHighlight(stateId){
-        console.log(stateId);
+        //console.log(stateId);
         var teams = this.statedict[stateId];
         var tableRows = document.getElementsByTagName("tr");
         for(let row of tableRows){
             var cls = row.getAttribute("class");
             if(cls !== null){
-                console.log("cls: ",cls);
                 if(cls.indexOf("winner")!==-1)
                     row.setAttribute("class","winner");
                 else
                     row.setAttribute("class","");
-                console.log("cls: ",cls);
             }
         }
         for(let team of teams){
-            console.log(document.getElementById(team));
+        //    console.log(document.getElementById(team));
             var element = document.getElementById(team);
             if(element !== null){
                 var cls = element.getAttribute("class");
@@ -192,18 +196,20 @@ class Map {
                 }
             }
         }
-        console.log("teams representing clicked state: ",teams);
+        //console.log("teams representing clicked state: ",teams);
 
     }
     tooltipRender(data){
+        
         var teams ="";
-        console.log("data[teams]: ",data["teams"]);
+        // //console.log("data[teams]: ",data["teams"]);
         for(var i = 0; i<data["teams"].length; i++){
-            teams = teams+data["teams"][i]+"<br />";
+            teams = teams+"<p>"+data["teams"][i]+"</p>";
         }
-        let text ="<pre><h1>"+data["state"]+"</h1></pre>"+
-            "<div>"+teams+"</div>";
-        console.log(text);
+        // let text ="<pre><h2>"+data["state"]+"</h2></pre>"+
+        //     "<div>"+teams+"</div>";
+        // //console.log(text);
+        let text = "<h2><b>" + data["state"] +"</b>"+ teams+"</h2>";
         return text;
     }
 }

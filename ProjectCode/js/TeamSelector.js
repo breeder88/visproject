@@ -48,7 +48,8 @@ class TeamSelector{
             .append('div')
             .attr("class", "tooltip")
             .style("opacity", 0)
-            .style('z-index', 9999);
+            .style('z-index', 9999)
+            .attr("id","teamSelectorTooltip");
 	};
 	update(year){
         this.svg.selectAll("text").remove()
@@ -78,7 +79,7 @@ class TeamSelector{
 			.remove();
 		let teamIconsEnter = teamIcons.enter().append("svg:image")
         teamIcons = teamIconsEnter.merge(teamIcons)
-        let tooltip = d3.select(".tooltip");
+        let tooltip = d3.select("#teamSelectorTooltip");
 		teamIcons.attr("xlink:href", d=>`TeamLogos/${d}.png`)
             .attr("width",this.teamSize)
             .attr("height",this.teamSize)
@@ -87,8 +88,12 @@ class TeamSelector{
             .on("mouseover", d=>{
                 this.svg.selectAll("image").filter(img => img==d).classed("highlighted",true);
                 tooltip.html(this.tooltipRender(d) + "<br/>")
-                    .style("left", d3.event.pageX + "px")
-                    .style("top", d3.event.pageY + "px")
+                    .style("left", d=>{
+                        return d3.event.target.x.baseVal.value-75+"px"
+                    })//d3.event.pageX-75 + "px")
+                    .style("top", d=>{
+                        return d3.event.target.y.baseVal.value+100+"px"
+                    })//d3.event.pageY + "px")
                     .style("opacity", 1);
             })
 			.on("mouseout", d=>{
@@ -96,7 +101,6 @@ class TeamSelector{
                 tooltip.style("opacity",0);
             })
             .on("click", d=>{
-                console.log("d: ",d);
                 this.selectedTeam(year,d);
                 tooltip.style("opacity",0);
                 this.gameTimeline.teamUpdate(year,d);
@@ -107,10 +111,10 @@ class TeamSelector{
                 .text("Season: "+year)
                 .attr("y","15")
                 .attr("x",this.svgWidth/2+this.teamSize/2)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
     };
     selectedTeam(year,teamName){
-        console.log("clicked ",teamName," on team selector");
         this.svg.selectAll("image").remove()
         let resetButton=this.svg.append("circle")
         resetButton.attr("r",this.buttonRadius)
@@ -132,6 +136,7 @@ class TeamSelector{
         buttonLabel.text("Pick Another Team")
             .attr("x",this.buttonLabelX)
             .attr("y",this.buttonLabelY)
+            .classed("text",true)
         
         this.svg.append("svc:image")
             .attr("xlink:href", `TeamLogos/${teamName}.png`)
@@ -144,7 +149,8 @@ class TeamSelector{
             .text("Viewing games for: " +teamName)
             .attr("x",this.svgWidth/2+this.teamSize/2)
             .attr("y",this.teamSize/2)
-            .style("text-anchor", "middle");
+            .style("text-anchor", "middle")
+            .classed("text",true);
     };
     reset(year){
         this.svg.selectAll("circle").remove()
