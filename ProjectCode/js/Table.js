@@ -176,7 +176,7 @@ class Table{
            .attr('x',0)
            .attr('y',0)
            .transition()
-           .duration(3000)
+           .duration(1000)
            .attr('width', d => this.gameScale(d.value))
            .attr('height', this.bar.height)
            .attr("fill", d => this.aggregateColorscale(d.value));
