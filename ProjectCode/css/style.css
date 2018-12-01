@@ -4,7 +4,7 @@ html {
 }
 body {
     font-family: Lato;
-    /*padding:40px;*/
+    padding:40px;
 }
 main {
     width: 100%;
@@ -270,10 +270,6 @@ tr.winner:after {
     font-weight: bold;
     font-size: 18px;
 }
-<<<<<<< HEAD
-#team-name{
-    width: 500px;
-=======
 
 .text{
     font-size: 18px;
@@ -289,5 +285,4 @@ tr.winner:after {
     border-radius: 4px;
     pointer-events: none;
     font-size: 15;
->>>>>>> c93e5c8cb7d830b30a226ff8b67de2b2a3c43374
 }
