@@ -100,7 +100,7 @@ class BirdsView{
 					   .range([0,this.svgWidth])
 					   //.padding(2);
 		var yScale = d3.scaleLinear()
-					   .domain([0,150])
+					   .domain([0,100])
 					   .range([this.svgHeight,0]);
 	    var xAxis = d3.axisBottom();
 	    var yAxis = d3.axisLeft();
