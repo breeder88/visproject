@@ -43,32 +43,10 @@ path{
     stroke-width: 3px;
 }
 
-.yeartext, .tilestext, .brushtext{
-    text-anchor: middle;
-    font-size: 24px;
-    fill: #565656;
-    stroke-width: 0.1px;
-}
-
-.electoralVotesNote, .votesPercentageNote{
-    text-anchor: middle;
-    font-size: 18px;
-}
-
-.electoralVoteText, .votesPercentageText{
-    font-size: 25px;
-    text-anchor: middle;
-    /* position: absolute; */
-}
 .end{
     text-anchor:end;
 }
 
-.nomineeInfoText{
-    font-size: 25px;
-    text-anchor: start;
-    position: absolute;
-}
 .Axis{
     stroke: #eee;
     stroke-width: 4;
@@ -99,10 +77,6 @@ path{
     float:right;
 }
 
-.electoralVotes{
-    stroke: #eee;
-}
-
 .middlePoint{
     stroke: #eee;
 }
@@ -120,25 +94,7 @@ path{
     stroke:#000;
     /* stroke-dasharray: 4; */
 }
-.republican{
-    fill: #de2d26;
-    color: #de2d26;
-    text-anchor:start;
-}
-.democrat{
-    fill: #3182bd;
-    color: #3182bd;
-    text-anchor:start;
-}
-.independent{
-    fill: #45AD6A;
-    color: #45AD6A;
-    text-anchor:start;
-}
 
-.votesPercentage{
-    stroke: #eee;
-}
 image {
     opacity: 1;
 }
@@ -376,4 +332,8 @@ tr.winner:after {
 .highlightedText{
     font-weight: bold;
     font-size: 18px;
+}
+
+.text{
+    font-size: 18px
 }

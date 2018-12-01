@@ -165,7 +165,7 @@ class Map {
 
     };
     updateHighlight(stateId){
-        console.log(stateId);
+        //console.log(stateId);
         var teams = this.statedict[stateId];
         var tableRows = document.getElementsByTagName("tr");
         for(let row of tableRows){
@@ -180,7 +180,7 @@ class Map {
             }
         }
         for(let team of teams){
-            console.log(document.getElementById(team));
+        //    console.log(document.getElementById(team));
             var element = document.getElementById(team);
             if(element !== null){
                 var cls = element.getAttribute("class");
@@ -192,18 +192,18 @@ class Map {
                 }
             }
         }
-        console.log("teams representing clicked state: ",teams);
+        //console.log("teams representing clicked state: ",teams);
 
     }
     tooltipRender(data){
         var teams ="";
-        console.log("data[teams]: ",data["teams"]);
+        //console.log("data[teams]: ",data["teams"]);
         for(var i = 0; i<data["teams"].length; i++){
             teams = teams+data["teams"][i]+"<br />";
         }
         let text ="<pre><h1>"+data["state"]+"</h1></pre>"+
             "<div>"+teams+"</div>";
-        console.log(text);
+        //console.log(text);
         return text;
     }
 }

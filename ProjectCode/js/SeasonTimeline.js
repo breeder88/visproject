@@ -83,6 +83,7 @@ class SeasonTimeline {
             .attr("y","185")
             .attr("x",(d,i)=>i*this.svgWidth/9+115)
             .style("text-anchor", "middle")
+            .classed("text",true)
             .classed("highlightedText",d=>{
                 if(this.initializedTeam === 0){
                     if(2008 == d.Year && "Rajasthan Royals" === d.Team){
@@ -97,6 +98,7 @@ class SeasonTimeline {
             .attr("y","15")
             .attr("x",(d,i)=>i*this.svgWidth/9+115)
             .style("text-anchor", "middle")
+            .classed("text",true)
             .classed("highlightedText",d=>{
                 if(this.initializedYear === 0){
                     if(2008 == d.Year && "Rajasthan Royals" === d.Team){

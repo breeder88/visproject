@@ -140,8 +140,8 @@ class GameTimeLine{
 				this.svg.append("rect")
 					.attr("x", currImage.attr("x"))
 					.attr("y", currImage.attr("y"))
-					.attr("width", this.teamSize)
-					.attr("height", this.teamSize)
+					.attr("width", this.teamSize+2)
+					.attr("height", this.teamSize+2)
 					.style("fill", "none")
 					.style("stroke", "black")
 					.style("stroke-width","5");

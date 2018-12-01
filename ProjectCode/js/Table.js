@@ -70,7 +70,7 @@ class Table{
                                     	val1 = +val1;
                                     	val2 = +val2;
                                     }
-                                    console.log("typeof(val1) and typeof(val2): ",typeof(val1),typeof(val2));
+                                    //console.log("typeof(val1) and typeof(val2): ",typeof(val1),typeof(val2));
                                     if(val1 < val2) return -1;
                                     else return 1;
                                 });
@@ -197,11 +197,11 @@ class Table{
 
 	}
     updateHighlight(teamId){
-        console.log("clicked ",teamId, " on table.");
+        //console.log("clicked ",teamId, " on table.");
         var stateId = this.codes[teamId];
         var states = document.getElementsByClassName("playing");
         for(let s of states){
-            console.log("s: ",s);
+            //console.log("s: ",s);
             s.setAttribute("class","playing");
         }
         var state = document.getElementById(stateId);

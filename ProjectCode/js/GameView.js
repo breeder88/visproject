@@ -84,89 +84,102 @@ class GameView {
                 .text("Date: "+selectedGame.date)
                 .attr("y","15")
                 .attr("x","0")
-                .style("text-anchor", "start");
+                .style("text-anchor", "start")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Venue: "+selectedGame.stadium)
                 .attr("y","30")
                 .attr("x","0")
-                .style("text-anchor", "start");
+                .style("text-anchor", "start")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Toss Winner: "+selectedGame.tossResult)
                 .attr("y","45")
-                .attr("x",0)
-                .style("text-anchor", "start");
+                .attr("x","0")
+                .style("text-anchor", "start")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("First to bat: "+selectedGame.firstInnings.batting.team)
                 .attr("y","200")
-                .attr("x",gameOverviewWidth/30+75)
+                .attr("x",gameOverviewWidth/30+110)
                 .classed("team1",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Runs: "+selectedGame.firstInnings.batting.runs)
                 .attr("y","215")
-                .attr("x",gameOverviewWidth/30+75)
+                .attr("x",gameOverviewWidth/30+110)
                 .classed("team1",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Wickets: "+selectedGame.firstInnings.batting.wickets)
                 .attr("y","230")
-                .attr("x",gameOverviewWidth/30+75)
+                .attr("x",gameOverviewWidth/30+110)
                 .classed("team1",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Run Rate: "+selectedGame.firstInnings.batting.runRate)
                 .attr("y","245")
-                .attr("x",gameOverviewWidth/30+75)
+                .attr("x",gameOverviewWidth/30+110)
                 .classed("team1",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Overs: "+selectedGame.firstInnings.batting.overs)
                 .attr("y","260")
-                .attr("x",gameOverviewWidth/30+75)
+                .attr("x",gameOverviewWidth/30+110)
                 .classed("team1",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Second to bat: "+selectedGame.secondInnings.batting.team)
                 .attr("y","200")
-                .attr("x",gameOverviewWidth/30+400)
+                .attr("x",gameOverviewWidth/30+450)
                 .classed("team2",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Runs: "+selectedGame.secondInnings.batting.runs)
                 .attr("y","215")
-                .attr("x",gameOverviewWidth/30+400)
+                .attr("x",gameOverviewWidth/30+450)
                 .classed("team2",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Wickets: "+selectedGame.secondInnings.batting.wickets)
                 .attr("y","230")
-                .attr("x",gameOverviewWidth/30+400)
+                .attr("x",gameOverviewWidth/30+450)
                 .classed("team2",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Run Rate: "+selectedGame.secondInnings.batting.runRate)
                 .attr("y","245")
-                .attr("x",gameOverviewWidth/30+400)
+                .attr("x",gameOverviewWidth/30+450)
                 .classed("team2",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
             timelineText.append("tspan")
                 .text("Overs: "+selectedGame.secondInnings.batting.overs)
                 .attr("y","260")
-                .attr("x",gameOverviewWidth/30+400)
+                .attr("x",gameOverviewWidth/30+450)
                 .classed("team2",true)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
 
             overviewsvg.append("svg:image")
                 .attr("xlink:href", `TeamLogos/${selectedGame.firstInnings.batting.team}.png`)
                 .attr("width",125)
                 .attr("height",125)
-                .attr("x",gameOverviewWidth/30+15)
+                .attr("x",gameOverviewWidth/30+45)
                 .attr("y","50")
             overviewsvg.append("svg:image")
                 .attr("xlink:href", `TeamLogos/${selectedGame.secondInnings.batting.team}.png`)
                 .attr("width",125)
                 .attr("height",125)
-                .attr("x",gameOverviewWidth/30+340)
+                .attr("x",gameOverviewWidth/30+380)
                 .attr("y","50")
 
             overviewsvg.append("circle")
@@ -176,7 +189,7 @@ class GameView {
                 .style("fill", "#d95f02");
 
             overviewsvg.append("circle")
-                .attr("cx", "330")
+                .attr("cx", "340")
                 .attr("cy", "195")
                 .attr("r", "10")
                 .style("fill", "#1f78b4");
@@ -223,11 +236,13 @@ class GameView {
             let axisXLabel = d3.select('.runs-axis-label-x')
                 .text("Player Number")
                 .style("text-anchor", "middle")
-                .attr('transform', 'translate(' + (battingWidth / 2) + ', ' + (battingHeight-5) + ')');
+                .attr('transform', 'translate(' + (battingWidth / 2) + ', ' + (battingHeight-5) + ')')
+                .classed("text",true);
             let axisYLabel = d3.select('.runs-axis-label-y')    
                 .text("Runs")
                 .style("text-anchor", "middle")
-                .attr('transform', 'translate(' + (margin.left / 2 ) + ', ' + (battingHeight / 2) + ')rotate(-90)');        
+                .attr('transform', 'translate(' + (margin.left / 2 ) + ', ' + (battingHeight / 2) + ')rotate(-90)')
+                .classed("text",true);        
         
             d3.select(".runs-x-axis").call(xRunsAxis.ticks(maxPlayers));
             d3.select(".runs-y-axis").call(yRunsAxis);
@@ -347,7 +362,8 @@ class GameView {
             let economyLabel = d3.select('.economy-label')
                 .text("Economy")
                 .style("text-anchor", "middle")
-                .attr('transform', 'translate(' + axisPosition[0] + ', ' + (labelHeight) + ')');
+                .attr('transform', 'translate(' + axisPosition[0] + ', ' + (labelHeight) + ')')
+                .classed("text",true);
 
             let bowlAxisRuns = d3.axisRight()
             axisPosition.push(Number(axisPosition)+Number(gameBowlingWidth/4))
@@ -359,7 +375,8 @@ class GameView {
             let runsLabel = d3.select('.runs-label')
                 .text("Runs Conceded")
                 .style("text-anchor", "middle")
-                .attr('transform', 'translate(' + axisPosition[1] + ', ' + (labelHeight) + ')');
+                .attr('transform', 'translate(' + axisPosition[1] + ', ' + (labelHeight) + ')')
+                .classed("text",true);
             
             let bowlAxisWickets = d3.axisRight()
             axisPosition.push(Number(axisPosition[1])+Number(gameBowlingWidth/4))
@@ -371,7 +388,8 @@ class GameView {
             let wicketsLabel = d3.select('.wickets-label')
                 .text("Wickets Taken")
                 .style("text-anchor", "middle")
-                .attr('transform', 'translate(' + axisPosition[2] + ', ' + (labelHeight) + ')');
+                .attr('transform', 'translate(' + axisPosition[2] + ', ' + (labelHeight) + ')')
+                .classed("text",true);
 
             let bowlAxisOvers = d3.axisRight()
             axisPosition.push(Number(axisPosition[2])+Number(gameBowlingWidth/4))
@@ -383,7 +401,8 @@ class GameView {
             let oversLabel = d3.select('.overs-label')
                 .text("Overs Bowled")
                 .style("text-anchor", "middle")
-                .attr('transform', 'translate(' + axisPosition[3] + ', ' + (labelHeight) + ')');
+                .attr('transform', 'translate(' + axisPosition[3] + ', ' + (labelHeight) + ')')
+                .classed("text",true);
             
             bowlingsvg.selectAll(".team1").remove()
             bowlingsvg.selectAll(".team2").remove()
@@ -399,6 +418,7 @@ class GameView {
                 .attr("x",d=>d.x-2)
                 .style("text-anchor", "end")
                 .attr("class",d=>d.teamNumber)
+                .classed("text",true)
                 .on("mouseover",d=>{
                     document.getElementById(d.playerName+"1").setAttribute("stroke-width","5")
                     document.getElementById(d.playerName+"2").setAttribute("stroke-width","5")
@@ -460,7 +480,8 @@ class GameView {
                 .text("No data available")
                 .attr("y","150")
                 .attr("x",gameOverviewWidth/2)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
 
             this.battingsvg.selectAll("circle")
                 .remove()
@@ -517,7 +538,8 @@ class GameView {
                 .text("No data available")
                 .attr("y","150")
                 .attr("x",gameOverviewWidth/2)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
 
             this.battingsvg.selectAll("circle")
                 .remove()

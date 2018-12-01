@@ -106,7 +106,8 @@ class TeamSelector{
                 .text("Season: "+year)
                 .attr("y","15")
                 .attr("x",this.svgWidth/2+this.teamSize/2)
-                .style("text-anchor", "middle");
+                .style("text-anchor", "middle")
+                .classed("text",true);
     };
     selectedTeam(year,teamName){
         this.svg.selectAll("image").remove()
@@ -130,6 +131,7 @@ class TeamSelector{
         buttonLabel.text("Pick Another Team")
             .attr("x",this.buttonLabelX)
             .attr("y",this.buttonLabelY)
+            .classed("text",true)
         
         this.svg.append("svc:image")
             .attr("xlink:href", `TeamLogos/${teamName}.png`)
@@ -142,7 +144,8 @@ class TeamSelector{
             .text("Viewing games for: " +teamName)
             .attr("x",this.svgWidth/2+this.teamSize/2)
             .attr("y",this.teamSize/2)
-            .style("text-anchor", "middle");
+            .style("text-anchor", "middle")
+            .classed("text",true);
     };
     reset(year){
         this.svg.selectAll("circle").remove()
