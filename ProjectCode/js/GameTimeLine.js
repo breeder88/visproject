@@ -11,7 +11,7 @@ class GameTimeLine{
 
         //fetch the svg bounds
         this.svgWidth = timeline.node().getBoundingClientRect().width;
-        this.svgHeight = 160;
+        this.svgHeight = 180;
 
         //add the svg to the div
         this.svg = timeline.append("svg")
@@ -24,7 +24,7 @@ class GameTimeLine{
 		this.winTickHeight=this.svgHeight/2-heightVal
 		this.loseTickHeight=this.svgHeight/2+heightVal
 		this.iconHeightWin=this.svgHeight/2-80
-		this.iconHeightLose=this.svgHeight/2
+		this.iconHeightLose=this.svgHeight/2 
 		this.teamSize=80
 		this.gameView = gameView
 		this.games = gameData;       
@@ -135,12 +135,23 @@ class GameTimeLine{
 			})
 			.on("click", d=>{
 				this.gameView.update(d);
+				let currImage = this.svg.selectAll("image").filter(img => img==d);
+				this.svg.selectAll("rect").remove()
+				this.svg.append("rect")
+					.attr("x", currImage.attr("x"))
+					.attr("y", currImage.attr("y"))
+					.attr("width", this.teamSize)
+					.attr("height", this.teamSize)
+					.style("fill", "none")
+					.style("stroke", "black")
+					.style("stroke-width","5");
 			})
 	};
 	reset(){
 		this.svg.selectAll("line").remove();
 		this.svg.selectAll("image").remove();
 		this.svg.selectAll("text").remove();
+		this.svg.selectAll("rect").remove();
 	};
 	tooltipRender(data) {
 		let text = "<h2>Date: "+ data.date +"<p>Opponent: "+ data.opposingTeam +"</p><p>Tie Game</p><p>Winner: " + data.winner + "</p></h2>";
